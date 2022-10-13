@@ -1,0 +1,16 @@
+@using Models
+@model Usuario
+<link rel="stylesheet" href="../static/css/login.css">
+<div class="login-page">
+    
+  <div class="form">
+    <form class="login-form">
+      <input type="text" placeholder="username" asp-for="@Model.Login">
+      <input type="password" placeholder="password" asp-for="@Model.Senha">
+      <input type="text" placeholder="email" asp-for="@Model.Email">
+      <button type="submit">Criar</button>
+      <p class="message">Já possui uma conta? <a asp-action="Login">Faça Login</a></p>
+    </form>
+
+  </div>
+</div>

@@ -1,0 +1,199 @@
+@using Models
+@model Personagem
+<script src="~/js/atributo.js"></script>
+<script onload="flushLocal()"></script>
+<style>
+    .div_dist {
+        display: none;
+        visibility: hidden
+    }
+
+    label {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+</style>
+<center>
+    <div style="outline:auto; display:inline-block; min-width: 605px">
+        <div style="display: inline-block">
+            <h1 style="margin: 10px">Defina seus atributos!</h1>
+            <hr>
+            <div style="margin-left: 20px; margin-right: 20px; float: left">
+                <h3 style="display: inline-block">Distribuição Padrão</h3>
+                <input type="radio" id="radio_distpadrao" name="rolagem" onclick="escolher(this)">
+                <h5>/ 8 / 10 / 12 / 13 / 14 / 15 /</h5>
+            </div>
+            <div style="margin-right: 20px; margin-left: 20px; float: left">
+                <h3 style="display: inline-block">4d6 - "Menor"</h3>
+                <input type="radio" id="radio_distrolar" name="rolagem" onclick="escolher(this)">
+            </div>
+        </div>
+        <hr>
+
+        <div>
+
+
+            <div class="div_dist" id="div_distpadrao">
+
+                <form method="POST">
+                    <div>
+                        <p style="display:inline-block">Força</p>
+                        <select style="display:inline-block" asp-for="@Model.Forca">
+                            <option value="">-</option>
+                            <option value="8">8</option>
+                            <option value="10">10</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                        </select>
+                        <span asp-validation-for="@Model.Forca"></span>
+                    </div>
+
+                    <div>
+                        <p style="display:inline-block">Destreza</p>
+                        <select style="display:inline-block" asp-for="@Model.Destreza">
+                            <option value="">-</option>
+                            <option value="8">8</option>
+                            <option value="10">10</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                        </select>
+                        <span asp-validation-for="@Model.Destreza"></span>
+                    </div>
+
+                    <div>
+                        <p style="display:inline-block">Constituição</p>
+                        <select style="display:inline-block" asp-for="@Model.Constituicao">
+                            <option value="">-</option>
+                            <option value="8">8</option>
+                            <option value="10">10</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                        </select>
+                        <span asp-validation-for="@Model.Constituicao"></span>
+                    </div>
+
+                    <div>
+                        <p style="display:inline-block">Inteligência</p>
+                        <select style="display:inline-block" asp-for="@Model.Inteligencia">
+                            <option value="">-</option>
+                            <option value="8">8</option>
+                            <option value="10">10</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                        </select>
+                        <span asp-validation-for=@Model.Inteligencia></span>
+                    </div>
+
+                    <div>
+                        <p style="display:inline-block">Sabedoria</p>
+                        <select style="display:inline-block" asp-for="@Model.Sabedoria">
+                            <option value="">-</option>
+                            <option value="8">8</option>
+                            <option value="10">10</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                        </select>
+                        <span asp-validation-for="@Model.Sabedoria"></span>
+                    </div>
+
+                    <div>
+                        <p style="display:inline-block">Carisma</p>
+                        <select style="display:inline-block" asp-for="@Model.Carisma">
+                            <option value="">-</option>
+                            <option value='8'>8</option>
+                            <option value="10">10</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                        </select>
+                        <span asp-validation-for="@Model.Carisma"></span>
+                    </div>
+
+                    <br>
+                    <input type="hidden" asp-for="@Model.IdPersonagem">
+                    <button style="text-align: center" type="submit"
+                        asp-route-IdPersonagem="@Model.IdPersonagem">Confirmar</button>
+                </form>
+            </div>
+            <form method="POST">
+                <div class="div_dist" id="div_distrolar">
+                    <div class="distrolar">
+                        <label for="roladorforca">
+                            <p style="display:inline-block">Força</p>
+                        </label>
+                        <input class="roladorforca" type="text" style="width: 20px" asp-for="@Model.Forca" readonly>
+                        <span asp-validation-for="@Model.Forca"></span>
+                        <label id="roladorforca" onclick="rolar(this)">Rolar</label>
+                    </div>
+
+                    <div class="distrolar">
+                        <label for="roladordestreza">
+                            <p style="display:inline-block">Destreza</p>
+                        </label>
+                        <input class="roladordestreza" type="text" style="width: 20px" readonly
+                            asp-for="@Model.Destreza">
+                        <span asp-validation-for="@Model.Destreza"></span>
+                        <label id="roladordestreza" onclick="rolar(this)">Rolar</label>
+                    </div>
+
+                    <div class="distrolar">
+                        <label for="roladoreconstituicao">
+                            <p style="display:inline-block">Constituição</p>
+                        </label>
+                        <input class="roladorconstituicao" type="text" style="width: 20px" disabled
+                            asp-for="@Model.Constituicao">
+                        <span asp-validation-for="@Model.Constituicao"></span>
+                        <label id="roladorconstituicao" onclick="rolar(this)">Rolar</label>
+                    </div>
+
+                    <div class="distrolar">
+                        <label for="roladorinteligencia">
+                            <p style="display:inline-block">Inteligência</p>
+                        </label>
+                        <input class="roladorinteligencia" type="text" style="width: 20px" disabled
+                            asp-for="@Model.Inteligencia">
+                        <span asp-validation-for="@Model.Inteligencia"></span>
+                        <label id="roladorinteligencia" onclick="rolar(this)">Rolar</label>
+                    </div>
+
+                    <div class="distrolar">
+                        <label for="roladorsabedoria">
+                            <p style="display:inline-block">Sabedoria</p>
+                        </label>
+                        <input class="roladorsabedoria" type="text" style="width: 20px" disabled
+                            asp-for="@Model.Sabedoria">
+                        <span asp-validation-for="@Model.Sabedoria"></span>
+                        <label id="roladorsabedoria" onclick="rolar(this)">Rolar</label>
+                    </div>
+
+                    <div class="distrolar">
+                        <label for="rolarocarisma">
+                            <p style="display:inline-block">Carisma</p>
+                        </label>
+                        <input class="roladorcarisma" type="text" style="width: 20px" disabled asp-for="@Model.Carisma">
+                        <span asp-validation-for="@Model.Carisma"></span>
+                        <label id="roladorcarisma" onclick="rolar(this)">Rolar</label>
+                    </div>
+                    <input type="hidden" asp-for="@Model.IdPersonagem">
+                    <button style="text-align: center" type="submit"
+                        asp-route-IdPersonagem="@Model.IdPersonagem">Confirmar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</center>

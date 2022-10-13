@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>EasyDnD 5.0</title>
+        <link rel="stylesheet" href="../static/Css/index.css">
+        <script src="../static/js/criarclasse.js"></script>
+    </head>
+    <body>
+        <div class="div_principal">
+            
+            <div class="div_tela">
+                <header class="cabecalho">
+                    <center>
+                        <img src="../static/lib/logo.png" class="logopng">
+                        
+                    </center>
+
+                    <div class="navbar">
+                        <a href="index.html">Principal</a>
+                        <a href="fichasJogador.html">Fichas</a>
+                        <a href="Rolagem.html">Rolagem de Dados</a>
+                        <a href="Customizacoes.html">Customizações</a>
+                        <a href="#contact">Sair</a>
+                      </div>
+
+                      
+                </header> 
+
+                
+                <hr>
+                <center>
+                    <div style="margin: 5px 5px; outline: auto; display: inline-block">
+                      <label for="Nome" style="margin: 5px 5px">Insira o nome da sua classe</label>
+                      <input id="Nome"type="text" style="margin: 5px 5px">
+                    </div>
+                    <div style="margin: 5px 5px">
+                      <span style="outline: auto; display: inline-block">
+                        <form onclick="temmagia(); modomagia()" action="">
+                          <p>Você usa magia por padrão?</p>
+                          <label for="UsaMagiatrue" style="margin: 5px 5px">Sim</label>
+                          <input id="UsaMagiatrue" name="usamagia" type="radio" style="margin: 5px 5px">
+                          <label for="UsaMagiafalse" style="margin: 5px 5px">Não</label>
+                          <input id="UsaMagiafalse" name="usamagia" type="radio" style="margin: 5px 5px">
+                          <div id="divusamagia" style="visibility: hidden; display: none">
+                          <p>Como obteve seus poderes?</p>
+                            <label for="Conjurador" style="margin: 5px 5px">Conjurador</label>
+                            <input type="radio" name="obtermagia" id="Conjurador" class="modoobtevemagia">
+                            <label for="Pacto" style="margin: 5px 5px">Pacto</label>
+                            <input type="radio" name="obtermagia" id="Pacto" class="modoobtevemagia">
+                            </div>
+                        </form>
+                      </span>
+                    </div>
+                    <table class="tabeladefinicoes">
+                        <thead>
+                          
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td><h4>Nível</h4></td>
+                            <td><h4>Bônus de <br><br><br><br><br><br><br><br>Proficiência</h4></td>
+                            <td><h4>Características</h4></td>
+                            <td class="conjuradortabela"><h4>Truques <br><br><br><br><br><br><br><br>conhecidos</h4></td>
+                            <td class="conjuradortabela" style="width: 50%"><h4>Espaços<br><br><br><br><br><br><br><br> de<br><br><br><br><br><br><br><br> Magia<br><br><br><br><br><br><br><br> por nível</h4><br>
+                              <div style="width: 100%">
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><h5 style="display: inline-block">1°</h5></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><h5 style="display: inline-block">2°</h5></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><h5 style="display: inline-block">3°</h5></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><h5 style="display: inline-block">4°</h5></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><h5 style="display: inline-block">5°</h5></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><h5 style="display: inline-block">6°</h5></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><h5 style="display: inline-block">7°</h5></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><h5 style="display: inline-block">8°</h5></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><h5 style="display: inline-block">9°</h5></div>
+                              </div>
+                            </td>
+                            <td class="pactotabela"><h4>Truques<br><br><br><br><br><br><br><br> Conhecidos</h4></td>
+                            <td class="pactotabela"><h4>Magias<br><br><br><br><br><br><br><br> Conhecidas</h4></td>
+                            <td class="pactotabela"><h4>Espaços<br><br><br><br><br><br><br><br> de<br><br><br><br><br><br><br><br> Magia</h4></td>
+                            <td class="pactotabela"><h4>Nível<br><br><br><br><br><br><br><br> de<br><br><br><br><br><br><br><br> Magia</h4></td>
+                            <td class="pactotabela"><h4>Invocações<br><br><br><br><br><br><br><br> Conhecidas</h4></td>
+                          </tr>
+
+                          <tr>
+                            <td><h5>1°</h5></td>
+                            <td><h5>+2</h5></td>
+                            <td id="campocarac1">
+                              <button id="carac1">+</button>
+                            </td>
+                            <td class="conjuradortabela"><h5>3</h5></td>
+                            <td class="conjuradortabela">
+                              <div style="width: 100%">
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>2</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                              </div>
+                            </td>
+                            <td class="pactotabela">2</td>
+                            <td class="pactotabela">2</td>
+                            <td class="pactotabela">1</td>
+                            <td class="pactotabela">1°</td>
+                            <td class="pactotabela">-</td>
+                          </tr>
+
+                          <tr>
+                            <td><h5>2°</h5></td>
+                            <td><h5>+2</h5></td>
+                            <td>
+                              <button id="carac2">+</button>
+                            </td>
+                            <td class="conjuradortabela"><h5>3</h5></td>
+                            <td class="conjuradortabela">
+                              <div style="width: 100%">
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                              </div>
+                            </td>
+                            <td class="pactotabela">2</td>
+                            <td class="pactotabela">3</td>
+                            <td class="pactotabela">2</td>
+                            <td class="pactotabela">1°</td>
+                            <td class="pactotabela">2</td>
+                          </tr>
+
+                          <tr>
+                            <td><h5>3°</h5></td>
+                            <td><h5>+2</h5></td>
+                            <td>
+                              <button id="carac3">+</button>
+                            </td>
+                            <td class="conjuradortabela"><h5>3</h5></td>
+                            <td class="conjuradortabela">
+                              <div style="width: 100%">
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>4</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>2</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                              </div>
+                            </td>
+                            <td class="pactotabela">2</td>
+                            <td class="pactotabela">4</td>
+                            <td class="pactotabela">2</td>
+                            <td class="pactotabela">2°</td>
+                            <td class="pactotabela">2</td>
+                          </tr>
+
+                          <tr>
+                            <td><h5>4°</h5></td>
+                            <td><h5>+2</h5></td>
+                            <td>
+                              <button id="carac4">+</button>
+                            </td>
+                            <td class="conjuradortabela"><h5>4</h5></td>
+                            <td class="conjuradortabela">
+                              <div style="width: 100%">
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>4</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                              </div>
+                            </td>
+                            <td class="pactotabela">3</td>
+                            <td class="pactotabela">5</td>
+                            <td class="pactotabela">2</td>
+                            <td class="pactotabela">2°</td>
+                            <td class="pactotabela">3</td>
+                          </tr>
+
+                          <tr>
+                            <td><h5>5°</h5></td>
+                            <td><h5>+3</h5></td>
+                            <td>
+                              <button id="carac5">+</button>
+                            </td>
+                            <td class="conjuradortabela"><h5>4</h5></td>
+                            <td class="conjuradortabela">
+                              <div style="width: 100%">
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>4</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>2</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                              </div>
+                            </td>
+                            <td class="pactotabela">3</td>
+                            <td class="pactotabela">6</td>
+                            <td class="pactotabela">2</td>
+                            <td class="pactotabela">3°</td>
+                            <td class="pactotabela">3</td>
+                          </tr>
+
+                          <tr>
+                            <td><h5>6°</h5></td>
+                            <td><h5>+3</h5></td>
+                            <td>
+                              <button id="carac6">+</button>
+                            </td>
+                            <td class="conjuradortabela"><h5>4</h5></td>
+                            <td class="conjuradortabela">
+                              <div style="width: 100%">
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>4</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                              </div>
+                            </td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                          </tr>
+
+                          <tr>
+                            <td><h5>7°</h5></td>
+                            <td><h5>+3</h5></td>
+                            <td>
+                              <button id="carac7">+</button>
+                            </td>
+                            <td class="conjuradortabela"><h5>4</h5></td>
+                            <td class="conjuradortabela">
+                              <div style="width: 100%">
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>4</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>1</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                              </div>
+                            </td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                          </tr>
+
+                          <tr>
+                            <td><h5>8°</h5></td>
+                            <td><h5>+3</h5></td>
+                            <td>
+                              <button id="carac8">+</button>
+                            </td>
+                            <td class="conjuradortabela"><h5>4</h5></td>
+                            <td class="conjuradortabela">
+                              <div style="width: 100%">
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>4</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>2</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                              </div>
+                            </td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                          </tr>
+
+                          <tr>
+                            <td><h5>9°</h5></td>
+                            <td><h5>+4</h5></td>
+                            <td>
+                              <button id="carac9">+</button>
+                            </td>
+                            <td class="conjuradortabela"><h5>4</h5></td>
+                            <td class="conjuradortabela">
+                              <div style="width: 100%">
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>4</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>1</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                              </div>
+                            </td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                          </tr>
+
+                          <tr>
+                            <td><h5>10°</h5></td>
+                            <td><h5>+4</h5></td>
+                            <td>
+                              <button id="carac10">+</button>
+                            </td>
+                            <td class="conjuradortabela"><h5>5</h5></td>
+                            <td class="conjuradortabela">
+                              <div style="width: 100%">
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>4</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>2</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                              </div>
+                            </td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                          </tr>
+
+                          <tr>
+                            <td><h5>11°</h5></td>
+                            <td><h5>+4</h5></td>
+                            <td>
+                              <button id="carac11">+</button>
+                            </td>
+                            <td class="conjuradortabela"><h5>5</h5></td>
+                            <td class="conjuradortabela">
+                              <div style="width: 100%">
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>4</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>2</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>1</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                              </div>
+                            </td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                          </tr>
+
+                          <tr>
+                            <td><h5>12°</h5></td>
+                            <td><h5>+4</h5></td>
+                            <td>
+                              <button id="carac12">+</button>
+                            </td>
+                            <td class="conjuradortabela"><h5>5</h5></td>
+                            <td class="conjuradortabela">
+                              <div style="width: 100%">
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>4</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>2</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>1</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                              </div>
+                            </td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                          </tr>
+
+                          <tr>
+                            <td><h5>13°</h5></td>
+                            <td><h5>+5</h5></td>
+                            <td>
+                              <button id="carac13">+</button>
+                            </td>
+                            <td class="conjuradortabela"><h5>5</h5></td>
+                            <td class="conjuradortabela">
+                              <div style="width: 100%">
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>4</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>2</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>1</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>1</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                              </div>
+                            </td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                          </tr>
+
+                          <tr>
+                            <td><h5>14°</h5></td>
+                            <td><h5>+5</h5></td>
+                            <td>
+                              <button id="carac14">+</button>
+                            </td>
+                            <td class="conjuradortabela"><h5>5</h5></td>
+                            <td class="conjuradortabela">
+                              <div style="width: 100%">
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>4</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>2</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>1</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>1</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                              </div>
+                            </td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                          </tr>
+
+                          <tr>
+                            <td><h5>15°</h5></td>
+                            <td><h5>+5</h5></td>
+                            <td>
+                              <button id="carac15">+</button>
+                            </td>
+                            <td class="conjuradortabela"><h5>5</h5></td>
+                            <td class="conjuradortabela">
+                              <div style="width: 100%">
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>4</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>2</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>1</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>1</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>1</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                              </div>
+                            </td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                          </tr>
+
+                          <tr>
+                            <td><h5>16°</h5></td>
+                            <td><h5>+5</h5></td>
+                            <td>
+                              <button id="carac16">+</button>
+                            </td>
+                            <td class="conjuradortabela"><h5>5</h5></td>
+                            <td class="conjuradortabela">
+                              <div style="width: 100%">
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>4</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>2</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>1</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>1</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>1</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>-</p></div>
+                              </div>
+                            </td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                          </tr>
+
+                          <tr>
+                            <td><h5>17°</h5></td>
+                            <td><h5>+6</h5></td>
+                            <td>
+                              <button id="carac17">+</button>
+                            </td>
+                            <td class="conjuradortabela"><h5>5</h5></td>
+                            <td class="conjuradortabela">
+                              <div style="width: 100%">
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>4</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>2</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>1</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>1</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>1</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>1</p></div>
+                              </div>
+                            </td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                          </tr>
+
+                          <tr>
+                            <td><h5>18°</h5></td>
+                            <td><h5>+6</h5></td>
+                            <td>
+                              <button id="carac18">+</button>
+                            </td>
+                            <td class="conjuradortabela"><h5>5</h5></td>
+                            <td class="conjuradortabela">
+                              <div style="width: 100%">
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>4</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>1</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>1</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>1</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>1</p></div>
+                              </div>
+                            </td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                          </tr>
+
+                          <tr>
+                            <td><h5>19°</h5></td>
+                            <td><h5>+6</h5></td>
+                            <td>
+                              <button id="carac19">+</button>
+                            </td>
+                            <td class="conjuradortabela"><h5>5</h5></td>
+                            <td class="conjuradortabela">
+                              <div style="width: 100%">
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>4</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>2</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>1</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>1</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>1</p></div>
+                              </div>
+                            </td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                          </tr>
+
+                          <tr>
+                            <td><h5>20°</h5></td>
+                            <td><h5>+6</h5></td>
+                            <td>
+                              <button id="carac20">+</button>
+                            </td>
+                            <td class="conjuradortabela"><h5>5</h5></td>
+                            <td class="conjuradortabela">
+                              <div style="width: 100%">
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>4</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>3</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>2</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>2</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>1</p></div>
+                                <div style="width: 11.11%; margin-left: 0px; margin-right: 0px; float: left"><p>1</p></div>
+                              </div>
+                            </td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                            <td class="pactotabela"></td>
+                          </tr>
+                        </tbody>
+                    </table>
+                </center>
+                <h2>Características de Classe</h2>
+                <h4></h4>
+            </div>      
+        </div>
+    </body>
+</html>

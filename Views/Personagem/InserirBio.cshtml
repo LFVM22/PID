@@ -1,0 +1,148 @@
+@using Models
+@model Personagem
+
+<style>
+    span {
+        background-color: black;
+        color: yellow
+    }
+    #monetariopersonalizado{
+        visibility: hidden;
+        display: none;
+        margin: 20px;
+        border: 1px solid black;
+        text-align: center
+    }
+    #monetariopersonalizado input{
+        width: 60px;
+        text-align: center
+    }
+    #BarraBio{
+        color: black;
+        background-color: red
+    }
+</style>
+<script>
+     function checado(){
+         if (document.getElementById('checado').checked == true){
+            document.getElementById('monetariopersonalizado').style.visibility = "visible";
+            document.getElementById('monetariopersonalizado').style.display = "block";
+            for (let element of document.getElementsByClassName("dinheiro")){
+                element.value = 0;
+            }
+            
+        }
+        else{
+            document.getElementById('monetariopersonalizado').style.visibility = "hidden"
+            document.getElementById('monetariopersonalizado').style.display = "none"
+            for (let element of document.getElementsByClassName("dinheiro")){
+                element.value = null;
+            }
+        }
+     }
+</script>
+
+<div class="pai" style="min-width: 247px">
+    <h1 style="margin: 20px">Persona e Informações</h1>
+    <hr>
+
+    <form method="POST">
+        <div style="margin: 20px">
+            <label for="nm">NOME DO PERSONAGEM:</label>
+            <br>
+            <input type="text" asp-for="@Model.Nome">
+            <br>
+            <span asp-validation-for="@Model.Nome"></span>
+            <br>
+            <label for="nm">ALTURA (em Metros.)</label>
+            <br>
+            <input type="text" asp-for="@Model.Tamanho">
+            <br>
+            <span asp-validation-for="@Model.Tamanho"></span>
+            <br>
+            <label for="nm">PESO</label>
+            <br>
+            <input type="text" asp-for="@Model.Peso">
+            <br>
+            <span asp-validation-for="@Model.Peso"></span>
+            <br>
+            <label for="nm">TENDÊNCIA</label>
+            <br>
+            <select asp-for="@Model.Tendencia">
+                <option value="">Escolha</option>
+                <option value="LB">Leal Bom</option>
+                <option value="LN">Leal Neutro</option>
+                <option value="LM">Leal Mal</option>
+                <option value="NB">Neutro Bom</option>
+                <option value="TN">Totalmente Neutro</option>
+                <option value="NM">Neutro Mal</option>
+                <option value="CB">Caótico Bom</option>
+                <option value="CN">Caótico Neutro</option>
+                <option value="CM">Caótico Mal</option>
+            </select>
+            <br>
+            <span asp-validation-for="@Model.Tendencia"></span>
+            <br>
+            <label>NÍVEL</label>
+            <br>
+            <input type="text" asp-for="@Model.Nivel">
+            <br>
+            <label for="nm">IDADE</label>
+            <br>
+            <input type="text" asp-for="@Model.Idade">
+            <br>
+            <span asp-validation-for="@Model.Idade"></span>
+            <br>
+            <label for="nm">OLHOS</label>
+            <br>
+            <input type="text" asp-for="@Model.Olhos">
+            <br>
+            <span asp-validation-for="@Model.Olhos"></span>
+            <br>
+            <label for="nm">CABELOS</label>
+            <br>
+            <input type="text" asp-for="@Model.Cabelos">
+            <br>
+            <span asp-validation-for="@Model.Cabelos"></span>
+            <br>
+            <label for="nm">PELE</label>
+            <br>
+            <input type="text" asp-for="@Model.Pele">
+            <br>
+            <span asp-validation-for="@Model.Pele"></span>
+            <div style="border: 1px solid black; margin-top: 10px; text-align: center" onchange="checado()">
+                <div style="width: 100%">
+                    <input type="radio" name="monetario" checked>
+                    <p>Usar balanço monetário padrão</p>
+                </div>
+                <hr>
+                <div>
+                    <input type="radio" name="monetario" id="checado">
+                    <p>Usar balanço monetário personalizado</p>
+                </div>
+            </div>
+        </div>
+        <div id="monetariopersonalizado">
+            <p>Peças de Cobre</p>
+            <input type="text" asp-for="@Model.PC" class="dinheiro" value=>
+            <hr>
+            <p>Peças de Prata</p>
+            <input type="text" asp-for="@Model.PP" class="dinheiro" value=>
+            <hr>
+            <p>Peças de Electra</p>
+            <input type="text" asp-for="@Model.PE" class="dinheiro" value=>
+            <hr>
+            <p>Peças de Ouro</p>
+            <input type="text" asp-for="@Model.PO" class="dinheiro" value=>
+            <hr>
+            <p>Peças de Platina</p>
+            <input type="text" asp-for="@Model.PL" class="dinheiro" value=>
+            <hr>
+        </div>
+        <br>
+        <br>
+        
+        <button style="text-align: center; margin-left: 40%; margin-bottom: 5px" type="submit"
+            asp-route-IdPersonagem="@Model.IdPersonagem">Salvar</button>
+    </form>
+</div>

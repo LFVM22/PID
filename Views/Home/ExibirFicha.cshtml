@@ -1,0 +1,98 @@
+@using Models
+@model IEnumerable<Personagem>
+<style>
+    label a {
+        text-decoration: none;
+        color: black
+    }
+
+    label a:hover {
+        color: black;
+    }
+
+    label button {
+        background-color: lightgrey
+    }
+</style>
+<center>
+    <h1>Suas Fichas</h1>
+</center>
+
+<div style="width: 75vw; min-width: 220px; display: flex; flex-flow: row wrap; outline: auto; margin-left: 12%; background-image: linear-gradient(to right, red, black)">
+
+    @*
+        Essa aqui tem que ficar na direita da div
+    *@
+    <div style="width: 60px; margin-right: 0px; height: inherit">
+        <button style="margin: auto"><a asp-controller="Personagem" asp-action="InserirBio"
+            style="text-decoration: none; color: black; width: auto">+ADD</a></button>
+    </div>
+
+    @foreach (var personagem in Model)
+    {
+        <div
+        style="width: 20vw; max-width: 240px; min-width: 240px; outline: auto; margin-left: 2%; background-color: white; float: left">
+
+                @foreach (var listaclasse in @ViewBag.listaclasse)
+                {
+                    if(listaclasse.IdClasse == personagem.IdClasse){
+                        <div style="display: flex;">
+                            <h5 style="margin: auto; margin-right: 2px">Classe:</h5>
+                            <img src='~/png/@(@personagem.IdClasse).png' style="width: 30px; height: 30px; margin: auto; margin-inline: 2px">
+                            <h5 style="margin: auto; margin-left: 2px">@listaclasse.Nome</h5>
+                        </div>
+                    }
+                }
+                <div style="display: flex; text-align: center">
+                    <h5 style="heigth: auto; margin: auto;">Nome: @personagem.Nome</h5>
+                </div>
+                <div style="display: flex; margin: auto; text-align: center">
+
+                    @foreach (var listaraca in @ViewBag.listaraca)
+                    {
+                        if (listaraca.IdRaca == personagem.IdRaca)
+                        {
+                            <h5 style="margin: auto">Raça: @listaraca.Nome |</h5>
+                        }
+                    }
+                    @foreach (var listasubraca in @ViewBag.listasubraca)
+                    {
+                        @if (personagem.IdSubRaca == listasubraca.IdSubRaca)
+                        {
+                            <h5 style="margin: auto">@listasubraca.Nome |</h5>
+                        }
+                    }
+                </div>
+                <label for="">
+                    @if (personagem.IdSubRaca is null || personagem.IdClasse is null || personagem.IdAntecedente is null)
+                    {
+                        if (personagem.IdSubRaca is null)
+                        {
+                            <button><a asp-controller="Raca" asp-action="Escolher"
+                        asp-route-IdPersonagem="@personagem.IdPersonagem">Concluir</a></button>
+                        }
+                        else if (personagem.IdClasse is null)
+                        {
+                            <button><a asp-controller="Classe" asp-action="Escolher"
+                        asp-route-IdPersonagem="@personagem.IdPersonagem">Concluir</a></button>
+                        }
+                        else if (personagem.IdAntecedente is null)
+                        {
+                            <button><a asp-controller="Antecedente" asp-action="Escolher"
+                        asp-route-IdPersonagem="@personagem.IdPersonagem">Concluir</a></button>
+                        }
+                    }
+                </label>
+
+                <div style="display: inline-block; margin: 1% 1%">
+                    <a asp-controller="Ficha" asp-action="Exibir" asp-route-IdPersonagem="@personagem.IdPersonagem">Ir para
+                            ficha</a>
+                </div>
+                <h4 style="display: inline-block;">|</h4>
+                <button><a asp-action="ExcluirFicha" asp-controller="Home"
+                    asp-route-IdPersonagem="@personagem.IdPersonagem">Excluir
+                        Personagem</a></button>
+
+        </div>
+    }
+</div>

@@ -1,0 +1,99 @@
+@using Models
+@model IEnumerable<Personagem>
+<style>
+    label a {
+        text-decoration: none;
+        color: black
+    }
+
+    label a:hover {
+        color: black;
+    }
+
+    label button {
+        background-color: lightgrey
+    }
+</style>
+<center>
+    <h1>Suas Fichas</h1>
+</center>
+
+<div style="width: 75vw; outline: auto; margin-left: 12%; background-image: linear-gradient(to right, red, black)">
+
+    <button style="float: right; margin: 1%; display: inline"><a asp-controller="Personagem" asp-action="InserirBio"
+            style="text-decoration: none; color: black">+ADD</a></button>
+
+    @foreach (var personagem in Model)
+    {
+        <div
+        style="width: 15vw; min-width: auto; display: inline-block; outline: auto; margin-left: 2%; background-color: white">
+
+            <div style="width: 15%; min-width: 15%vh; width: auto; outline: auto">
+
+                <img src="../static/lib/245717.png" style="width: 15px; height: 15px" id="ficha1">
+                <label for="ficha1" style="display: inline-block">
+                    <h4>@personagem.Nome</h4>
+                </label>
+                <h4 style="display: inline-block;">|</h4>
+                <label for="ficha1" style="display: inline-block">
+
+                    @foreach (var listaraca in @ViewBag.listaraca)
+                    {
+                        if (listaraca.IdRaca == personagem.IdRaca)
+                        {
+                            <h5>@listaraca.Nome |</h5>
+                        }
+
+
+                    }
+                    @foreach (var listasubraca in @ViewBag.listasubraca)
+                    {
+                        @if (personagem.IdSubRaca == listasubraca.IdSubRaca)
+                        {
+                            <h5>@listasubraca.Nome |</h5>
+                        }
+                    }
+                </label>
+                <label for="">
+                        @foreach (var listaclasse in @ViewBag.listaclasse)
+                        {
+                            if (personagem.IdClasse == listaclasse.IdClasse)
+                            {
+                                <h5>@listaclasse.Nome</h5>
+                            }
+                        }
+                </label>
+                <label for="">
+                    @if (personagem.IdSubRaca is null || personagem.IdClasse is null || personagem.IdAntecedente is null)
+                    {
+                        if (personagem.IdSubRaca is null)
+                        {
+                            <button><a asp-controller="Raca" asp-action="Escolher"
+                        asp-route-IdPersonagem="@personagem.IdPersonagem">Concluir</a></button>
+                        }
+                        else if (personagem.IdClasse is null)
+                        {
+                            <button><a asp-controller="Classe" asp-action="Escolher"
+                        asp-route-IdPersonagem="@personagem.IdPersonagem">Concluir</a></button>
+                        }
+                        else if (personagem.IdAntecedente is null)
+                        {
+                            <button><a asp-controller="Antecedente" asp-action="Escolher"
+                        asp-route-IdPersonagem="@personagem.IdPersonagem">Concluir</a></button>
+                        }
+                    }
+                </label>
+
+                <div style="display: inline-block; margin: 1% 1%">
+                    <a asp-controller="Ficha" asp-action="Exibir" asp-route-IdPersonagem="@personagem.IdPersonagem">Ir para
+                            ficha</a>
+                </div>
+                <h4 style="display: inline-block;">|</h4>
+                <button><a asp-action="ExcluirFicha" asp-controller="Home"
+                    asp-route-IdPersonagem="@personagem.IdPersonagem">Excluir
+                        Personagem</a></button>
+            </div>
+
+        </div>
+    }
+</div>

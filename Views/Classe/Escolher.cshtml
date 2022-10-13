@@ -1,0 +1,682 @@
+@using Models
+@model Personagem
+<script src="~/js/classes.js"></script>
+
+<Style>
+  #BarraBio{
+        color: black;
+        background-color: red
+    }
+  #BarraRaca{
+      color: black;
+      background-color: red
+  }
+  #BarraClasse{
+        color: black;
+        background-color: red
+    }
+</Style>
+
+<center>
+  @Model.IdClasse
+  <div class="box1">
+    <h1 style="margin: 10px">Escolha sua Classe!</h1>
+    <hr>
+    <div style="justify-self: center; clear:right; position:static">
+      <h2>Classes:</h2>
+    </div>
+    <div style="justify-self:center; clear:none; position:relative;">
+      <form onclick="classes()" method="POST">
+
+        <div style="display:inline-block; text-align: left; vertical-align: super; margin:10px">
+          @foreach (var item in @ViewBag.listaclasse)
+          {
+            if (item.IdClasse % 2 != 0)
+            {
+              <input id='@("Classe" + item.IdClasse)' type="radio" name="IdClasse" value=@item.IdClasse class="radioclasse">
+              <label for="@item.Nome">@item.Nome</label><br>
+            }
+          }
+        </div>
+        <div style="display:inline-block; text-align: left; vertical-align: super">
+          @foreach (var item in @ViewBag.listaclasse)
+          {
+            if (item.IdClasse % 2 == 0)
+            {
+              <input id='@("Classe" + item.IdClasse)' type="radio" name="IdClasse" value=@item.IdClasse class="radioclasse">
+              <label for="@item.Nome">@item.Nome</label><br>
+            }
+          }
+        </div>
+        <br>
+        <input type="hidden" asp-for="@Model.IdPersonagem">
+        <button class="bt2" type="submit" asp-route-IdPersonagem="@Model.IdPersonagem">SAVE</button>
+        <span asp-validation-for="@Model.IdClasse"></span>
+      </form>
+    </div>
+  </div>
+</center>
+<hr>
+@foreach (var listaclasse in @ViewBag.listaclasse)
+{
+  <form id="@(listaclasse.Nome)classe" class="classes"
+  style="visibility:hidden; display: none; text-align: left; margin-left: 5px">
+    <h2>@listaclasse.Nome</h2>
+
+    <h3>Dado de vida: d @listaclasse.DadoVida</h3>
+    <hr>
+
+    @foreach (var listatraco in @ViewBag.listatraco)
+    {
+      @foreach (var listaclassetracosdeclasse in @ViewBag.listaclassetracosdeclasse)
+      {
+        if (listaclassetracosdeclasse.IdTracodeClasse == listatraco.IdTracodeClasse)
+        {
+          <h3>@listatraco.Nome</h3>
+          <h4>@listatraco.HabilidadeTracodeClasse</h4>
+          <hr>
+        }
+      }
+    }
+  </form>
+}
+@* <form id="barbaroclasse" class="classes" style="visibility:hidden; display: none; text-align: left; margin-left:
+  5px">
+  <table class="tabeladefinicoes">
+  <thead>
+  <h2>O Bárbaro</h2>
+  </thead>
+  <tbody>
+  <tr>
+  <td>
+  <h4>Nível</h4>
+  </td>
+  <td>
+  <h4>Bônus de <br><br><br><br><br><br><br><br> Proficiência</h4>
+  </td>
+  <td>
+  <h4>Características</h4>
+  </td>
+  <td>
+  <h4>Fúrias</h4>
+  </td>
+  <td>
+  <h4>Dano de Fúria</h4>
+  </td>
+  </tr>
+  <tr>
+  <td>
+  <h5>1°</h5>
+  </td>
+  <td>
+  <h5>+2</h5>
+  </td>
+  <td>
+  <h5>Fúria, Defesa sem Armadura</h5>
+  </td>
+  <td>
+  <h5>2</h5>
+  </td>
+  <td>
+  <h5>+2</h5>
+  </td>
+  </tr>
+  <tr>
+  <td>
+  <h5>2°</h5>
+  </td>
+  <td>
+  <h5>+2</h5>
+  </td>
+  <td>
+  <h5>Ataque Descuidado, Sentido do Perigo</h5>
+  </td>
+  <td>
+  <h5>2</h5>
+  </td>
+  <td>
+  <h5>+2</h5>
+  </td>
+  </tr>
+  <tr>
+  <td>
+  <h5>3°</h5>
+  </td>
+  <td>
+  <h5>+2</h5>
+  </td>
+  <td>
+  <h5>Caminho Primitivo</h5>
+  </td>
+  <td>
+  <h5>3</h5>
+  </td>
+  <td>
+  <h5>+2</h5>
+  </td>
+  </tr>
+  <tr>
+  <td>
+  <h5>4°</h5>
+  </td>
+  <td>
+  <h5>+2</h5>
+  </td>
+  <td>
+  <h5>Incremento no Valor de Habilidade</h5>
+  </td>
+  <td>
+  <h5>3</h5>
+  </td>
+  <td>
+  <h5>+2</h5>
+  </td>
+  </tr>
+  <tr>
+  <td>
+  <h5>5°</h5>
+  </td>
+  <td>
+  <h5>+3</h5>
+  </td>
+  <td>
+  <h5>Ataque Extra, Movimento Rápido</h5>
+  </td>
+  <td>
+  <h5>3</h5>
+  </td>
+  <td>
+  <h5>+2</h5>
+  </td>
+  </tr>
+  <tr>
+  <td>
+  <h5>6°</h5>
+  </td>
+  <td>
+  <h5>+3</h5>
+  </td>
+  <td>
+  <h5>Característica de Caminho Primitivo</h5>
+  </td>
+  <td>
+  <h5>4</h5>
+  </td>
+  <td>
+  <h5>+2</h5>
+  </td>
+  </tr>
+  <tr>
+  <td>
+  <h5>7°</h5>
+  </td>
+  <td>
+  <h5>+3</h5>
+  </td>
+  <td>
+  <h5>Instinto Selvagem</h5>
+  </td>
+  <td>
+  <h5>4</h5>
+  </td>
+  <td>
+  <h5>+2</h5>
+  </td>
+  </tr>
+  <tr>
+  <td>
+  <h5>8°</h5>
+  </td>
+  <td>
+  <h5>+3</h5>
+  </td>
+  <td>
+  <h5>Incremento no Valor de Habilidade</h5>
+  </td>
+  <td>
+  <h5>4</h5>
+  </td>
+  <td>
+  <h5>+2</h5>
+  </td>
+  </tr>
+  <tr>
+  <td>
+  <h5>9°</h5>
+  </td>
+  <td>
+  <h5>+4</h5>
+  </td>
+  <td>
+  <h5>Crítico Brutal (+1 dado)</h5>
+  </td>
+  <td>
+  <h5>4</h5>
+  </td>
+  <td>
+  <h5>+3</h5>
+  </td>
+  </tr>
+  <tr>
+  <td>
+  <h5>10°</h5>
+  </td>
+  <td>
+  <h5>+4</h5>
+  </td>
+  <td>
+  <h5>Característica de Caminho Primitivo</h5>
+  </td>
+  <td>
+  <h5>4</h5>
+  </td>
+  <td>
+  <h5>+3</h5>
+  </td>
+  </tr>
+  <tr>
+  <td>
+  <h5>11°</h5>
+  </td>
+  <td>
+  <h5>+4</h5>
+  </td>
+  <td>
+  <h5>Fúria Implacável</h5>
+  </td>
+  <td>
+  <h5>4</h5>
+  </td>
+  <td>
+  <h5>+3</h5>
+  </td>
+  </tr>
+  <tr>
+  <td>
+  <h5>12°</h5>
+  </td>
+  <td>
+  <h5>+4</h5>
+  </td>
+  <td>
+  <h5>Incremento no Valor de Habilidade</h5>
+  </td>
+  <td>
+  <h5>5</h5>
+  </td>
+  <td>
+  <h5>+3</h5>
+  </td>
+  </tr>
+  <tr>
+  <td>
+  <h5>13°</h5>
+  </td>
+  <td>
+  <h5>+5</h5>
+  </td>
+  <td>
+  <h5>Crítico Brutal (+2 dados)</h5>
+  </td>
+  <td>
+  <h5>5</h5>
+  </td>
+  <td>
+  <h5>+3</h5>
+  </td>
+  </tr>
+  <tr>
+  <td>
+  <h5>14°</h5>
+  </td>
+  <td>
+  <h5>+5</h5>
+  </td>
+  <td>
+  <h5>Característica de Caminho Primitivo</h5>
+  </td>
+  <td>
+  <h5>5</h5>
+  </td>
+  <td>
+  <h5>+3</h5>
+  </td>
+  </tr>
+  <tr>
+  <td>
+  <h5>15°</h5>
+  </td>
+  <td>
+  <h5>+5</h5>
+  </td>
+  <td>
+  <h5>Fúria Persistente</h5>
+  </td>
+  <td>
+  <h5>5</h5>
+  </td>
+  <td>
+  <h5>+3</h5>
+  </td>
+  </tr>
+  <tr>
+  <td>
+  <h5>16°</h5>
+  </td>
+  <td>
+  <h5>+5</h5>
+  </td>
+  <td>
+  <h5>Incremento no Valor de Habilidade</h5>
+  </td>
+  <td>
+  <h5>5</h5>
+  </td>
+  <td>
+  <h5>+4</h5>
+  </td>
+  </tr>
+  <tr>
+  <td>
+  <h5>17°</h5>
+  </td>
+  <td>
+  <h5>+6</h5>
+  </td>
+  <td>
+  <h5>Crítico Brutal (+3 dados)</h5>
+  </td>
+  <td>
+  <h5>6</h5>
+  </td>
+  <td>
+  <h5>+4</h5>
+  </td>
+  </tr>
+  <tr>
+  <td>
+  <h5>18°</h5>
+  </td>
+  <td>
+  <h5>+6</h5>
+  </td>
+  <td>
+  <h5>Força Indomável</h5>
+  </td>
+  <td>
+  <h5>6</h5>
+  </td>
+  <td>
+  <h5>+4</h5>
+  </td>
+  </tr>
+  <tr>
+  <td>
+  <h5>19°</h5>
+  </td>
+  <td>
+  <h5>+6</h5>
+  </td>
+  <td>
+  <h5>Incremento no Valor de Habilidade</h5>
+  </td>
+  <td>
+  <h5>6</h5>
+  </td>
+  <td>
+  <h5>+4</h5>
+  </td>
+  </tr>
+  <tr>
+  <td>
+  <h5>20°</h5>
+  </td>
+  <td>
+  <h5>+6</h5>
+  </td>
+  <td>
+  <h5>Campeão Primitivo</h5>
+  </td>
+  <td>
+  <h5>Ilimitado</h5>
+  </td>
+  <td>
+  <h5>+4</h5>
+  </td>
+  </tr>
+  </tbody>
+  </table>
+  <h1>Características de Classe</h1>
+  <hr>
+  <h3>Pontos de Vida</h3>
+  <h4>Dados de Vida: 1d12 por nível de bárbaro</h4>
+  <h4>Pontos de Vida no 1° Nível: 12 + modificador de Constituição</h4>
+  <h4>Pontos de Vida nos Níveis Seguintes: 1d12 (ou 7) + modificador de Constituição por nível após o primeiro
+  nível</h4>
+  <h3>Proficiências</h3>
+  <h4>Armaduras: Armaduras leves, armaduras médias e escudos</h4>
+  <h4>Armas: Armas simples e armas marciais</h4>
+  <h4>Ferramentas: Nenhuma</h4>
+  <h4>Testes de Resistência: Força, Constituição</h4>
+  <h4>Perícias: Escolha duas dentre Adestrar Animais, Atletismo, Intimidação, Natureza, Percepção e Sobrevivência
+  </h4>
+  <h3>Equipamentos</h3>
+  <h4>Um machado grande ou qualquer arma marcial corpo-a-corpo</h4>
+  <h4>Dois machados de mão ou qualquer arma simples</h4>
+  <h4>Um pacote de aventureiro e quatro azagaias</h4>
+
+  <h2>Fúria</h2>
+  <hr>
+  <h4>Durante seu turno, você pode entrar em modo de fúria com uma ação bônus. Enquanto no modo de fúria, recebe
+  os seguintes atributos se não estiver vestindo armaduras pesadas:</h4>
+  <ul>
+  <li>
+  <h4>Vantagem em testes de Força e testes de resistência de Força;</h4>
+  </li>
+  <li>
+  <h4>Ao atacar com arma corpo-a-corpo usando Força, recebe um bônus nas jogadas de dano, que aumenta conforme
+  mostrado na coluna Dano de Fúria da tabela O Bárbaro;</h4>
+  </li>
+  <li>
+  <h4>Você possui resistência contra dano de concussão, cortante e perfurante</h4>
+  </li>
+  </ul>
+  <h4>Se for capaz de conjurar magias, não poderá conjurá-las ou concentrar nelas enquanto em fúria.</h4>
+  <h4>Sua fúria dura por 1 minuto. Ela termina prematuramente se você cair inconsciente ou se seu turno acabar e
+  você não tiver atacado nenhuma criatura hostil desde seu último turno ou não tiver sofrido dano nesse período.
+  Você também pode terminar sua fúria no seu turno com uma ação bônus. </h4>
+
+  <h4>Quando você tiver usado a quantidade de fúrias mostrada para o seu nível de bárbaro na coluna Fúrias da
+  tabela O Bárbaro, você precisará terminar um descanso longo antes de poder entrar em fúria novamente.</h4>
+  <h2>Defesa sem Armadura</h2>
+  <hr>
+
+  <h4>Quando não estiver vestindo armadura, sua Classe de Armadura será 10 + seu modificador de Destreza + seu
+  modificador de Constituição. Este benefício ainda será concedido se estiver usando um escudo</h4>
+
+  <h2>Ataque Descuidado</h2>
+  <hr>
+  <h4>A partir do 2° nível, ao realizar seu primeiro ataque num turno, você pode optar por atacar descuidadamente,
+  garantindo vantagem nas jogadas de ataque com armas corpo-a-corpo usando Força durante seu turno. Entretanto,
+  todas as jogadas de ataque contra você, até o início de seu próximo turno, terão vantagem</h4>
+
+  <h2>Sentido de Perigo</h2>
+  <hr>
+  <h4>A partir do 2° nível você possui vantagem em testes de resistência de Destreza contra efeitos que você possa
+  ver, como armadilhas e magias. Para se aproveitar desse efeito, você não pode estar cego, surdo ou
+  incapacitado</h4>
+
+  <h2>Caminho Primitivo</h2>
+  <hr>
+  <h4>Permite que, no 3° nível, escolha um caminho, sendo o Caminho do Furioso ou o Caminho do Guerreiro Totêmico
+  </h4>
+
+  <h2>Incremento no Valor de Habilidade</h2>
+  <hr>
+  <h4>Permite que, nos níveis 4, 8, 12, 16 e 19, aumente o valor de uma habilidade à sua escolha em 2 ou de duas
+  habilidade em 1. Uma habilidade não pode possuir um valor que 20</h4>
+
+  <h2>Ataque Extra</h2>
+  <hr>
+  <h4>A partir do nível 5, você possuirá mais uma jogada de ataque em seu turno</h4>
+
+  <h2>Movimento Rápido</h2>
+  <hr>
+  <h4>Começando no 5° nível, seu deslocamento aumenta em 3m enquanto não estiver usando uma armadura pesada</h4>
+
+  <h2>Instinto Brutal</h2>
+  <hr>
+  <h4>No 7° nível você passará a receber vantagem em jogadas de iniciativa. Além disso, se um combate iniciar de
+  surpresa, ao ativar sua fúria como primeira ação do combate, você poderá agir normalmente em seu primeiro
+  turno</h4>
+
+  <h2>Crítico Brutal</h2>
+  <hr>
+  <h4>A partir do 9° nível, você pode rolar um dado de dano de arma adicional quando estiver determinando o dano
+  extra de um acerto crítico com arma corpo-a-corpo. Isso aumenta para dois dados adicionais no núvel 13 e três
+  dados adicionais no nível 17</h4>
+
+  <h2>Fúria Implacável</h2>
+  <hr>
+  <h4>A partir do 11° nível, enquanto estiver em fúria e seus pontos de vida caírem para 0 ou menos - e não morrer
+  -, você pode fazer um teste de resistência de Constituição, cujo Coeficiente de Dificuldade é 10, para
+  continuar no combate e ter seus pontos de vida mantidos em 1. Cada vez que passar no teste, o Coeficiente de
+  Dificuldade aumenta em 5, sendo restaurado para 10 após um descanso curto com longo</h4>
+
+  <h2>Fúria Persistente</h2>
+  <hr>
+  <h4>A partir do 15° nível, sua fúria só pode ser terminada prematuramente caso caia incosciente ou decida
+  terminá-la</h4>
+
+  <h2>Força Indomável</h2>
+  <hr>
+  <h4>A partir do 18° nível, se o total de um teste de Força seu for menor que o seu valor de Força, você pode
+  usar esse valor no lugar do resultado</h4>
+
+  <h2>Campeão Primitivo</h2>
+  <hr>
+  <h4>No 20° nível, seus valores de Força e Constituição aumentam em 4, além de seus limites subirem para 24</h4>
+
+  <h1>Caminho Primitivo</h1>
+
+  <h2>Caminho do Furioso</h2>
+  <hr>
+  <h3>Frenesi</h3>
+  <h4>Começando no 3° nível, nos turnos subsequentes ao ativar sua fúria, você pode realizar um ataque bônus com
+  uma arma corpo-a-corpo. Ao fim de sua fúria, sofrerá de exaustão</h4>
+
+  <h3>Fúria Inconsciente</h3>
+  <h4>A partir do 6° nível, enquanto estiver em fúria, você não pode ser enfeitiçado ou amedrontado. Estes estados
+  são cortados quando você entrar em fúria</h4>
+
+  <h3>Presença Intimidante</h3>
+  <h4>A partir do 10° nível, use uma ação para amedrontar uma criatura a até 9m de você -que você veja-, que possa
+  ver e ouvir você. A criatura deve ser bem sucedida em um teste de resistência de Sabedoria, cujo Coeficiente
+  de Dificuldade é 8 + bônus de proficiência + modificador de Carisma, ou ficará com medo de você até o fim do
+  seu próximo turno. Nos turno seguintes, você pode usar uma ação para estender a duração desse efeito na
+  criatura amedrontada até o início do seu próximo turno. Esse feito termina se a criatura terminar seu turno
+  fora da sua linha de visão ou a mais de 18m de você. Se a criatura for bem sucedida no teste de resistência,
+  você não poderá usar essa habilidade na mesma criatura durante as próximas 24h</h4>
+
+  <h3>Retaliação</h3>
+  <h4>A partir do 14° nível, quando sofrer dano de uma criatura que esteja a até 1.5m de você, você pode realizar
+  uma jogada de reação e desferir um ataque corpo-a-corpo com arma contra a criatura</h4>
+
+  <br>
+  <h2>Caminho do Guerreiro Totêmico</h2>
+  <hr>
+
+  <h3>Conselheiro Espiritual</h3>
+  <h4>A partir do 3° nível você recebe a habilidade de conjurar as magias Sentido Bestial e Falar com Animais, mas
+  apenas como rituais.</h4>
+
+  <h3>Totem Espiritual</h3>
+  <h4>A partir do 3° nível, você escolhe um totem espiritual e ganha suas características. O totem deve ser
+  relacionado aos animais listados abaixo, podendo ser utilizado animais similares, como falcões ou coiotes:
+  </h4>
+  <ul>
+  <li>
+  <h4>Águia: Enquanto em fúria -e não estiver trajando armaduras pesadas-, criaturas terão desvantagem em
+  jogadas de atauqe de oportunidade contra você. Você adquire a habilidade de usar sua uma ação bônus para
+  Disparar</h4>
+  </li>
+  <li>
+  <h4>Lobo: Quando estiver em fúria, seus amigos têm vantagem nas jogadas de ataque corpo-a-corpo realizadas
+  contra qualquer criatura a até 1.5m de você e que seja hostil a você</h4>
+  </li>
+  <li>
+  <h4>Urso: Quando em fúria, adquire resistência a todos os tipos de dano, esceto dano psíquico</h4>
+  </li>
+  </ul>
+
+  <h3>Aspecto da Besta</h3>
+  <h4>No 6° nível você adquire um benefício místico baseado no totem escolhido. Você pode escolher o mesmo animal
+  do nível 3 ou um diferente:</h4>
+  <ul>
+  <li>
+  <h4>Águia: Você pode ver a até 1.6km sem dificuldade, além disso, penumbra não impõem desvantagem nos testes
+  de Percepção</h4>
+  </li>
+  <li>
+  <h4>Lobo: Você pode rastrear outras criaturas enquanto estiver viajando rápido e pode se mover furtivamente
+  enquanto estiver viajando a passo normal</h4>
+  </li>
+  <li>
+  <h4>Urso: Sua capacidade de carga é dobrada e você tem vantagem em testes de Força realizados para empurrar,
+  puxar, erquer ou quebrar objetos</h4>
+  </li>
+  </ul>
+
+  <h3>Andarilho Espiritual</h3>
+  <h4>No 10° nível, você pode conjuara a magia Comunhão com a Natureza, mas apenas como ritual. Ao fazer isso, uma
+  versão espiritual de um dos animais que você escolheu como Totem Espiritual ou Aspecto da Besta aparece para
+  você para transmitir a informação que você busca</h4>
+
+  <h3>Sintonia Totêmica</h3>
+  <h4>No 14° nível você ganha um benefício mágico baseado em um totem animal à sua escolha. Você pode escolher o
+  mesmo animal que selecionou anteriormente ou um diferente:</h4>
+  <ul>
+  <li>
+  <h4>Águia: Quando estiver em fúria, adquire um descolamento de voo igual ao seu deslocamento de caminhada.
+  Este benefício só funciona em pequenas explosões, cessando se concluir seu turno voando</h4>
+  </li>
+  <li>
+  <h4>Lobo: Quando estiver em fúria, você pode usar uma ação bônus no seu turno para derrubar uma criatura
+  Grande ou menor no chão quando você atingí-la com um ataque corpo-a-corpo com arma</h4>
+  </li>
+  <li>
+  <h4>Urso: Quando estiver em fúria, qualquer criatura a até 1.5m de você e que for hostil contra você terá
+  desvantagem nas jogadas de ataque contra outros alvos ou outro personagem com essa característica. Um
+  inimigo é imune a esse efeito se ele não puder ver ou ouvir você ou caso ele não possa ser amedrontado
+  </h4>
+  </li>
+  </ul>
+
+  </form>
+  <form id="bardoclasse" class="classes" style="visibility:hidden; display: none; text-align: left; margin-left: 5px">
+  b
+  </form>
+  <form id="bruxoclasse" class="classes" style="visibility:hidden; display: none; text-align: left; margin-left: 5px">
+  </form>
+  <form id="clerigoclasse" class="classes" style="visibility:hidden; display: none; text-align: left; margin-left: 5px">
+  </form>
+  <form id="druidaclasse" class="classes" style="visibility:hidden; display: none; text-align: left; margin-left: 5px">
+  </form>
+  <form id="feiticeiroclasse" class="classes"
+  style="visibility:hidden; display: none; text-align: left; margin-left: 5px">
+  </form>
+  <form id="guerreiroclasse" class="classes" style="visibility:hidden; display: none; text-align: left; margin-left: 5px">
+  </form>
+  <form id="ladinoclasse" class="classes" style="visibility:hidden; display: none; text-align: left; margin-left: 5px">
+  </form>
+  <form id="magoclasse" class="classes" style="visibility:hidden; display: none; text-align: left; margin-left: 5px">
+  </form>
+  <form id="mongeclasse" class="classes" style="visibility:hidden; display: none; text-align: left; margin-left: 5px">
+  </form>
+  <form id="paladinoclasse" class="classes" style="visibility:hidden; display: none; text-align: left; margin-left: 5px">
+  </form>
+  <form id="patrulheirooclasse" class="classes"
+  style="visibility:hidden; display: none; text-align: left; margin-left: 5px">
+  </form> *@
+</div>
+</div>

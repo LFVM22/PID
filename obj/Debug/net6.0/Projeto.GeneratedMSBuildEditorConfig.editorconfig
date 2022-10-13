@@ -1,0 +1,140 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = Projeto
+build_property.RootNamespace = Projeto
+build_property.ProjectDir = C:\Users\Mazi\Desktop\Projeto - BackEnd\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = true
+build_property.MSBuildProjectDirectory = C:\Users\Mazi\Desktop\Projeto - BackEnd
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/Mazi/Desktop/Projeto - BackEnd/Views/Antecedente/Escolhe.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQW50ZWNlZGVudGVcRXNjb2xoZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mazi/Desktop/Projeto - BackEnd/Views/Antecedente/Escolher.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQW50ZWNlZGVudGVcRXNjb2xoZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mazi/Desktop/Projeto - BackEnd/Views/Atributo/Escolhe.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXRyaWJ1dG9cRXNjb2xoZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mazi/Desktop/Projeto - BackEnd/Views/Atributo/Escolher.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXRyaWJ1dG9cRXNjb2xoZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mazi/Desktop/Projeto - BackEnd/Views/Classe/Escolhe.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xhc3NlXEVzY29saGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mazi/Desktop/Projeto - BackEnd/Views/Classe/Escolher.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xhc3NlXEVzY29saGVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mazi/Desktop/Projeto - BackEnd/Views/Ficha/Exibi.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmljaGFcRXhpYmkuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mazi/Desktop/Projeto - BackEnd/Views/Ficha/Exibir.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmljaGFcRXhpYmlyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mazi/Desktop/Projeto - BackEnd/Views/Home/ExcluirFich.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxFeGNsdWlyRmljaC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mazi/Desktop/Projeto - BackEnd/Views/Home/ExcluirFicha.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxFeGNsdWlyRmljaGEuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mazi/Desktop/Projeto - BackEnd/Views/Home/ExibirFich.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxFeGliaXJGaWNoLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mazi/Desktop/Projeto - BackEnd/Views/Home/ExibirFicha.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxFeGliaXJGaWNoYS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mazi/Desktop/Projeto - BackEnd/Views/Home/index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxpbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mazi/Desktop/Projeto - BackEnd/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mazi/Desktop/Projeto - BackEnd/Views/Item/Escolhe.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSXRlbVxFc2NvbGhlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mazi/Desktop/Projeto - BackEnd/Views/Item/Escolher.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSXRlbVxFc2NvbGhlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mazi/Desktop/Projeto - BackEnd/Views/Pericia/Escolhe.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVyaWNpYVxFc2NvbGhlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mazi/Desktop/Projeto - BackEnd/Views/Pericia/Escolher.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVyaWNpYVxFc2NvbGhlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mazi/Desktop/Projeto - BackEnd/Views/Personagem/InserirBio.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVyc29uYWdlbVxJbnNlcmlyQmlvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mazi/Desktop/Projeto - BackEnd/Views/Raca/Escolhe.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmFjYVxFc2NvbGhlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mazi/Desktop/Projeto - BackEnd/Views/Raca/Escolher.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmFjYVxFc2NvbGhlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mazi/Desktop/Projeto - BackEnd/Views/Rolagem/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sYWdlbVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mazi/Desktop/Projeto - BackEnd/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mazi/Desktop/Projeto - BackEnd/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mazi/Desktop/Projeto - BackEnd/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mazi/Desktop/Projeto - BackEnd/Views/Usuario/Cadastrar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xDYWRhc3RyYXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mazi/Desktop/Projeto - BackEnd/Views/Usuario/EsqueciaSenha.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xFc3F1ZWNpYVNlbmhhLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mazi/Desktop/Projeto - BackEnd/Views/Usuario/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mazi/Desktop/Projeto - BackEnd/Views/Usuario/Perfil.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xQZXJmaWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mazi/Desktop/Projeto - BackEnd/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mazi/Desktop/Projeto - BackEnd/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 

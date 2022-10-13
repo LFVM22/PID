@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro do Jogador</title>
+    <link rel="stylesheet" href="../static/Css/index.css">
+    <style>
+        #esquecisenha {
+            text-decoration: none;
+            color: black
+        }
+
+        #esquecisenha:hover {
+            color: blue
+        }
+    </style>
+</head>
+
+<body>
+    <div class="div_principal">
+
+        <div class="div_tela">
+            <header class="cabecalho">
+                <center>
+                    <img src="../static/lib/logo.png" class="logopng">
+
+                </center>
+
+                <div class="navbar">
+                    <a href="index.html">Principal</a>
+                    <a href="fichasJogador.html">Fichas</a>
+                    <a href="Rolagem.html">Rolagem de Dados</a>
+                    <a href="Customizacoes.html">Customizações</a>
+                    <a href="#contact">Sair</a>
+                </div>
+
+            </header>
+            <hr>
+
+            <div style="float: left; min-width: 500px">
+                <h1 id="" style="margin-left: 13vw"><span class="legenda">Criar Conta</span></h1>
+                <table style="margin-left: 10vw">
+                    <tr>
+                        <td><span class="legenda"> Nome: </span></td>
+                        <td><input class="campo" type="text"></td>
+                    </tr>
+                    <tr>
+                        <td><span class="legenda"> Email: </span></td>
+                        <td><input class="campo" type="text"></td>
+                    </tr>
+                    <tr>
+                        <td><span class="legenda"> Login: </span></td>
+                        <td><input class="campo" type="text"></td>
+                    </tr>
+                    <tr>
+                        <td><span class="legenda">Senha: </span></td>
+                        <td><input class="campo" type="password"></td>
+                    </tr>
+                    <tr>
+                        <td><span class="legenda">Confirmar Senha: </span></td>
+                        <td><input class="campo" type="password"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="legenda" onclick="Salvar()">Salvar</button>
+                            <button class="legenda" onclick="Cancelar()">Cancelar</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div style="margin-right: 13vw; float: right">
+                <h1><span class="legenda"> Login do Jogador</span></h1>
+
+                <table style="margin-right: 10vw">
+                    <tr>
+                        <td><span class="legenda">Login: </span></td>
+                        <td><input type="text"></td>
+                    </tr>
+                    <tr>
+                        <td><span class="legenda">Senha: </span></td>
+                        <td><input type="password"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a id="esquecisenha" href="Esqueciasenha.html">Esqueci a senha</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input id="manterlogado" type="checkbox">
+                            <label for="manterlogado">Manter Logado</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="legenda" onclick="Salvar()">Salvar</button>
+                            <button class="legenda" onclick="Cancelar()">Cancelar</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <script>
+        function Salvar() {
+            alert("Conta criada com sucesso!");
+        }
+        function Cancelar() {
+            alert("Criação cancelada")
+            var element = document.getElementsByClassName('campo');
+            for (i = 0; i < element.length; i++) {
+                element[i].value = '';
+            }
+        }
+    </script>
+</body>
+
+</html>

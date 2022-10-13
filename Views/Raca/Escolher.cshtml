@@ -1,0 +1,572 @@
+@using Models
+@model Personagem
+<script src="~/js/racas.js"></script>
+<link rel="stylesheet" href="~/css/index1.css">
+<style>
+  #BarraBio{
+        color: black;
+        background-color: red
+    }
+  #BarraRaca{
+      color: black;
+      background-color: red
+  }
+</style>
+
+
+
+  <form onclick="racas()" method="POST">
+    <div >
+            <p class="bt1">X</p>
+
+        </div>
+    <div >
+      <div class="tbox">
+      <h1 >Escolha sua Raça!</h1>
+    </div>
+    <div class="box">
+      <center>
+      <div style="align-items: center; margin-left: 5px;">
+        
+        <h2>Raças:</h2>
+      </div>
+      </center>
+        <div >
+          @foreach (var listaraca in @ViewBag.listaraca)
+          {
+            if (listaraca.IdRaca % 2 != 0)
+            {
+              <input id='@listaraca.IdRaca' type="radio" name="IdRaca" value=@listaraca.IdRaca>
+              <label for="@listaraca.IdRaca">@listaraca.Nome</label><br>
+            }
+
+          }
+        </div>
+        <div >
+          @foreach (var listaraca in @ViewBag.listaraca)
+          {
+            if (listaraca.IdRaca % 2 == 0)
+            {
+              <input id='@listaraca.IdRaca' type="radio" name="IdRaca" value=@listaraca.IdRaca>
+              <label for="@listaraca.IdRaca">@listaraca.Nome</label><br>
+            }
+
+          }
+        </div>
+      </div>
+    </div>
+  
+    <hr>
+    @foreach (var listaraca in @ViewBag.listaraca)
+    {
+      string Habilidade = null;
+      @if (listaraca.BonusConstituicao != null)
+      {
+        Habilidade = listaraca.BonusConstituicao + " de bônus de Constituição";
+      }
+      @if (listaraca.BonusForca != null)
+      {
+        if (Habilidade != null)
+        {
+          Habilidade = Habilidade + " e " + listaraca.BonusForca + " de bônus de Força";
+        }
+        else
+        {
+          Habilidade = listaraca.BonusForca + " de bônus de Força";
+        }
+      }
+      @if (listaraca.BonusDestreza != null)
+      {
+        if (Habilidade != null)
+        {
+          Habilidade = Habilidade + " e " + listaraca.BonusDestreza + " de bônus de Destreza";
+        }
+        else
+        {
+          Habilidade = listaraca.BonusDestreza + " de bônus de Destreza";
+        }
+      }
+      @if (listaraca.BonusInteligencia != null)
+      {
+        if (Habilidade != null)
+        {
+          Habilidade = Habilidade + " e " + listaraca.BonusInteligencia + " de bônus de Inteligência";
+        }
+        else
+        {
+          Habilidade = listaraca.BonusInteligencia + " de bônus de Inteligência";
+        }
+      }
+      @if (listaraca.BonusSabedoria != null)
+      {
+        if (Habilidade != null)
+        {
+          Habilidade = Habilidade + " e " + listaraca.BonusSabedoria + " de bônus de Sabedoria";
+        }
+        else
+        {
+          Habilidade = listaraca.BonusSabedoria + " de bônus de Sabedoria";
+        }
+      }
+      @if (listaraca.BonusCarisma != null)
+      {
+        if (Habilidade != null)
+        {
+          Habilidade = Habilidade + " e " + listaraca.BonusCarisma + " de bônus de Carisma";
+        }
+        else
+        {
+          Habilidade = listaraca.BonusCarisma + " de bônus de Carisma";
+        }
+      }
+
+
+      <div id="@(listaraca.Nome)subracas" class="subracas"
+      style="">
+
+        <h2>@listaraca.Nome</h2>
+        <h3>Aumento no valor de habilidade: @Habilidade</h3>
+        <hr>
+        <h3>Tamanho: @listaraca.Tamanho</h3>
+        <hr>
+        <h3>Idade: Até @listaraca.Idade anos</h3>
+        <hr>
+        <h3>Deslocamento: @listaraca.Deslocamento m</h3>
+        <hr>
+        <input type="hidden" asp-for="@Model.IdPersonagem">
+        @foreach (var listahabilidaderaca in @ViewBag.listahabilidaderaca)
+        {
+          if (listahabilidaderaca.IdRaca == listaraca.IdRaca)
+          {
+            var habracaidhab = listahabilidaderaca.IdHabilidadeRacial;
+            foreach (var listahabilidade in @ViewBag.listahabilidade)
+            {
+              if (listahabilidade.IdHabilidadeRacial == habracaidhab)
+              {
+                <h3>@listahabilidade.Nome</h3>
+                <h4>@listahabilidade.Descricao</h4>
+                <br>
+              }
+            }
+          }
+        }
+        <hr>
+        @foreach (var listasubraca in @ViewBag.listasubraca)
+        {
+          if (listasubraca.IdRaca == listaraca.IdRaca)
+          {
+            Habilidade = null;
+            @if (listasubraca.BonusConstituicao != null)
+            {
+              Habilidade = listasubraca.BonusConstituicao + " de bônus de Constituição";
+            }
+            @if (listasubraca.BonusForca != null)
+            {
+              if (Habilidade != null)
+              {
+                Habilidade = Habilidade + " e " + listasubraca.BonusForca + " de bônus de Força";
+              }
+              else
+              {
+                Habilidade = listasubraca.BonusForca + " de bônus de Força";
+              }
+            }
+            @if (listasubraca.BonusDestreza != null)
+            {
+              if (Habilidade != null)
+              {
+                Habilidade = Habilidade + " e " + listasubraca.BonusDestreza + " de bônus de Destreza";
+              }
+              else
+              {
+                Habilidade = listasubraca.BonusDestreza + " de bônus de Destreza";
+              }
+            }
+            @if (listasubraca.BonusInteligencia != null)
+            {
+              if (Habilidade != null)
+              {
+                Habilidade = Habilidade + " e " + listasubraca.BonusInteligencia + " de bônus de Inteligência";
+              }
+              else
+              {
+                Habilidade = listasubraca.BonusInteligencia + " de bônus de Inteligência";
+              }
+            }
+            @if (listasubraca.BonusSabedoria != null)
+            {
+              if (Habilidade != null)
+              {
+                Habilidade = Habilidade + " e " + listasubraca.BonusSabedoria + " de bônus de Sabedoria";
+              }
+              else
+              {
+                Habilidade = listasubraca.BonusSabedoria + " de bônus de Sabedoria";
+              }
+            }
+            @if (listasubraca.BonusCarisma != null)
+            {
+              if (Habilidade != null)
+              {
+                Habilidade = Habilidade + " e " + listasubraca.BonusCarisma + " de bônus de Carisma";
+              }
+              else
+              {
+                Habilidade = listasubraca.BonusCarisma + " de bônus de Carisma";
+              }
+            }
+            <h3 style="display: flex">Nome: @listasubraca.Nome</h3>
+            <input type="radio" name="IdSubRaca" id='@("SubRaca" + listasubraca.IdSubRaca)' value="@listasubraca.IdSubRaca">
+            <h3>Aumento no Valor de Habilidade: @Habilidade</h3>
+            <hr>
+
+            @foreach (var listahabilidadesubraca in @ViewBag.listahabilidadesubraca)
+            {
+              if (listahabilidadesubraca.IdSubRaca == listasubraca.IdSubRaca)
+              {
+                var habracaidhab = listahabilidadesubraca.IdHabilidadeRacial;
+                foreach (var listahabilidade in @ViewBag.listahabilidade)
+                {
+                  if (listahabilidade.IdHabilidadeRacial == habracaidhab)
+                  {
+                    <h3>@listahabilidade.Nome</h3>
+                    <h4>@listahabilidade.Descricao</h4>
+                    <br>
+                    <hr>
+                    <hr>
+                  }
+                }
+              }
+            }
+          }
+        }
+        <button class="bt2" type="submit" asp-route-IdPersonagem="@Model.IdPersonagem">SAVE</button>
+        <span asp-validation-for="@Model.IdSubRaca"></span>
+      </div>
+    }
+  </form>
+
+
+  @* <form onclick="racas()">
+    <div style="display:inline-block; text-align: left; vertical-align: super;">
+    @foreach (var listaraca in @ViewBag.listaraca)
+    {
+    if (listaraca.IdRaca % 2 != 0)
+    {
+    <input id='@listaraca.IdRaca' type="radio" name="IdRaca" value=@listaraca.IdRaca>
+    <label for="@listaraca.IdRaca">@listaraca.Nome</label><br>
+    }
+
+    }
+    </div>
+    <div style="display:inline-block; text-align: left; vertical-align: super;">
+    @foreach (var listaraca in @ViewBag.listaraca)
+    {
+    if (listaraca.IdRaca % 2 == 0)
+    {
+    <input id='@listaraca.IdRaca' type="radio" name="IdRaca" value=@listaraca.IdRaca>
+    <label for="@listaraca.IdRaca">@listaraca.Nome</label><br>
+    }
+
+    }
+    </div>
+    </form>
+    </div>
+    </div>
+    <hr>
+    @foreach (var listaraca in @ViewBag.listaraca)
+    {
+    string Habilidade = null;
+    @if (listaraca.BonusConstituicao != null)
+    {
+    Habilidade = listaraca.BonusConstituicao + " de bônus de Constit uição";
+    }
+    @if (listaraca.BonusForca != null)
+    {
+    if (Habilidade != null)
+    {
+    Habilidade = Habilidade + " e " + listaraca.BonusForca + " de bônus de Força";
+    }
+    else
+    {
+    Habilidade = listaraca.BonusForca + " de bônus de Força";
+    }
+    }
+    @if (listaraca.BonusDestreza != null)
+    {
+    if (Habilidade != null)
+    {
+    Habilidade = Habilidade + " e " + listaraca.BonusDestreza + " de bônus de Destreza";
+    }
+    else
+    {
+    Habilidade = listaraca.BonusDestreza + " de bônus de Destreza";
+    }
+    }
+    @if (listaraca.BonusInteligencia != null)
+    {
+    if (Habilidade != null)
+    {
+    Habilidade = Habilidade + " e " + listaraca.BonusInteligencia + " de bônus de Inteligência";
+    }
+    else
+    {
+    Habilidade = listaraca.BonusInteligencia + " de bônus de Inteligência";
+    }
+    }
+    @if (listaraca.BonusSabedoria != null)
+    {
+    if (Habilidade != null)
+    {
+    Habilidade = Habilidade + " e " + listaraca.BonusSabedoria + " de bônus de Sabedoria";
+    }
+    else
+    {
+    Habilidade = listaraca.BonusSabedoria + " de bônus de Sabedoria";
+    }
+    }
+    @if (listaraca.BonusCarisma != null)
+    {
+    if (Habilidade != null)
+    {
+    Habilidade = Habilidade + " e " + listaraca.BonusCarisma + " de bônus de Carisma";
+    }
+    else
+    {
+    Habilidade = listaraca.BonusCarisma + " de bônus de Carisma";
+    }
+    }
+
+
+    <form id="@(listaraca.Nome)subracas" class="subracas"
+    style="visibility:hidden; display: none; text-align: left; margin-left: 5px" method="POST">
+
+    <h2>@listaraca.Nome</h2>
+    <h3>Aumento no valor de habilidade: @Habilidade</h3>
+    <h3>Tamanho: @listaraca.Tamanho</h3>
+    <h3>Idade: Até @listaraca.Idade anos</h3>
+    <h3>Deslocamento: @listaraca.Deslocamento m</h3>
+    <input type="hidden" asp-for="@Model.IdPersonagem">
+    @foreach (var listahabilidaderaca in @ViewBag.listahabilidaderaca)
+    {
+    if (listahabilidaderaca.IdRaca == listaraca.IdRaca)
+    {
+    var habracaidhab = listahabilidaderaca.IdHabilidadeRacial;
+    foreach (var item2 in @ViewBag.listahabilidade)
+    {
+    if (item2.IdHabilidadeRacial == habracaidhab)
+    {
+    <h3>@item2.Nome</h3>
+    <h4>@item2.Descricao</h4>
+    }
+    }
+    }
+    }
+    <hr>
+    @foreach (var listasubraca in @ViewBag.listasubraca)
+    {
+    if (listasubraca.IdRaca == listaraca.IdRaca)
+    {
+    Habilidade = null;
+    @if (listasubraca.BonusConstituicao != null)
+    {
+    Habilidade = listasubraca.BonusConstituicao + " de bônus de Constiuição";
+    }
+    @if (listasubraca.BonusForca != null)
+    {
+    if (Habilidade != null)
+    {
+    Habilidade = Habilidade + " e " + listasubraca.BonusForca + " de bônus de Força";
+    }
+    else
+    {
+    Habilidade = listasubraca.BonusForca + " de bônus de Força";
+    }
+    }
+    @if (listasubraca.BonusDestreza != null)
+    {
+    if (Habilidade != null)
+    {
+    Habilidade = Habilidade + " e " + listasubraca.BonusDestreza + " de bônus de Destreza";
+    }
+    else
+    {
+    Habilidade = listasubraca.BonusDestreza + " de bônus de Destreza";
+    }
+    }
+    @if (listasubraca.BonusInteligencia != null)
+    {
+    if (Habilidade != null)
+    {
+    Habilidade = Habilidade + " e " + listasubraca.BonusInteligencia + " de bônus de Inteligência";
+    }
+    else
+    {
+    Habilidade = listasubraca.BonusInteligencia + " de bônus de Inteligência";
+    }
+    }
+    @if (listasubraca.BonusSabedoria != null)
+    {
+    if (Habilidade != null)
+    {
+    Habilidade = Habilidade + " e " + listasubraca.BonusSabedoria + " de bônus de Sabedoria";
+    }
+    else
+    {
+    Habilidade = listasubraca.BonusSabedoria + " de bônus de Sabedoria";
+    }
+    }
+    @if (listasubraca.BonusCarisma != null)
+    {
+    if (Habilidade != null)
+    {
+    Habilidade = Habilidade + " e " + listasubraca.BonusCarisma + " de bônus de Carisma";
+    }
+    else
+    {
+    Habilidade = listasubraca.BonusCarisma + " de bônus de Carisma";
+    }
+    }
+    <h3>Nome: @listasubraca.Nome</h3>
+    <input type="radio" name="IdSubRaca" id='@("SubRaca" + listasubraca.IdSubRaca)' value="@listasubraca.IdSubRaca">
+    <h3>Aumento no Valor de Habilidade: @Habilidade</h3>
+    if(listasubraca.IdSubRaca is null){
+    <input type="hidden" asp-for="@Model.IdRaca" value="@listaraca.IdRaca">
+    }
+    }
+    }
+    <button type="submit" asp-route-IdPersonagem="@Model.IdPersonagem">Continuar</button>
+    <span asp-validation-for="@Model.IdSubRaca"></span>
+    </form>
+    } *@
+
+  @* <table class="tabeladefinicoes0">
+    <thead>
+    <h4>Ancestral Dracônico</h4>
+    </thead>
+    <tbody>
+    <tr>
+    <td>
+    <h5>Dragão</h5>
+    </td>
+    <td>
+    <h5>Tipo de Dano</h5>
+    </td>
+    <td>
+    <h5>Arma de Sopro</h5>
+    </td>
+    </tr>
+    <tr>
+    <td>
+    <h5>Azul</h5>
+    </td>
+    <td>
+    <h5>Elétrico</h5>
+    </td>
+    <td>
+    <h5>Linha de 1.5m/9m (teste de Destreza)</h5>
+    </td>
+    </tr>
+    <tr>
+    <td>
+    <h5>Branco</h5>
+    </td>
+    <td>
+    <h5>Frio</h5>
+    </td>
+    <td>
+    <h5>Cone de 4.5m (teste de Constituição)</h5>
+    </td>
+    </tr>
+    <tr>
+    <td>
+    <h5>Bronze</h5>
+    </td>
+    <td>
+    <h5>Elétrico</h5>
+    </td>
+    <td>
+    <h5>Linha de 1.5m/9m (teste de Destreza)</h5>
+    </td>
+    </tr>
+    <tr>
+    <td>
+    <h5>Cobre</h5>
+    </td>
+    <td>
+    <h5>Ácido</h5>
+    </td>
+    <td>
+    <h5>Linha de 1.5m/9m (teste de Destreza)</h5>
+    </td>
+    </tr>
+    <tr>
+    <td>
+    <h5>Latão</h5>
+    </td>
+    <td>
+    <h5>Fogo</h5>
+    </td>
+    <td>
+    <h5>Linha de 1.5m/9m (teste de Destreza)</h5>
+    </td>
+    </tr>
+    <tr>
+    <td>
+    <h5>Negro</h5>
+    </td>
+    <td>
+    <h5>Ácido</h5>
+    </td>
+    <td>
+    <h5>Linha de 1.5m/9m (teste de Destreza</h5>
+    </td>
+    </tr>
+    <tr>
+    <td>
+    <h5>Ouro</h5>
+    </td>
+    <td>
+    <h5>Fogo</h5>
+    </td>
+    <td>
+    <h5>Cone de 4.5m (teste de Destreza)</h5>
+    </td>
+    </tr>
+    <tr>
+    <td>
+    <h5>Prata</h5>
+    </td>
+    <td>
+    <h5>Frio</h5>
+    </td>
+    <td>
+    <h5>Cone de 4.5m (teste de Constituição)</h5>
+    </td>
+    </tr>
+    <tr>
+    <td>
+    <h5>Verde</h5>
+    </td>
+    <td>
+    <h5>Veneno</h5>
+    </td>
+    <td>
+    <h5>Cone de 4.5m (teste de Constituição)</h5>
+    </td>
+    </tr>
+    <tr>
+    <td>
+    <h5>Vermelho</h5>
+    </td>
+    <td>
+    <h5>Fogo</h5>
+    </td>
+    <td>
+    <h5>Cone de 4.5m (teste de Destreza)</h5>
+    </td>
+    </tr>
+    </tbody>
+    </table> *@
+
+

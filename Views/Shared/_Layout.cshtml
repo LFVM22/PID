@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+
+   <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EasyDnD</title>
+    
+    <link rel="stylesheet" href="~/css/index1.css" asp-append-version="true" />
+    
+</head>
+
+<body>
+    <div class="cf">
+        <div>
+            <header>
+              <nav class="navbar">
+                <a asp-action="Index" asp-controller="Home"><img class="dadin" src="~/png/dadin.png"></a>
+                <ul class="nav1">
+                  <li> <a asp-controller="Home" asp-action="Index">Home</a></li>
+                  <li> <a asp-controller="Home" asp-action="ExibirFicha">Fichas</a></li>
+                  <li><a asp-controller="Rolagem" asp-action="Index">Rolagem de Dados</a></li>
+                  <li><a href="Customizacoes.html">Customizaões</a></li>
+                  <li><a asp-controller="Usuario" asp-action="Perfil" asp-route-IdUsuario="1">Meu Perfil</a></li>
+                  <li><a>Sair</a></li>
+                </ul>
+              </nav>
+        </div>
+        </header>
+   </div>
+   @if(@Model is Personagem){
+    @if(@Model.IdPersonagem is not null){
+<div class="Barra">
+    <div class="BarraSegmento" id="BarraBio">
+      Biografia
+    </div>
+    <div class="BarraSegmento" id="BarraRaca">
+      Raça
+    </div>
+    <div class="BarraSegmento" id="BarraClasse">
+      Classe
+    </div>
+    <div class="BarraSegmento" id="BarraAtributo">
+      Atributos
+    </div>
+    <div class="BarraSegmento" id="BarraAntecedente">
+      Antecedente
+    </div>
+    <div class="BarraSegmento" id="BarraPericia">
+      Perícia
+    </div>
+    <div class="BarraSegmento" id="BarraItem">
+      Itens
+    </div>
+    @* <div class="BarraSegmento" id="BarraMagia">
+      Magias
+    </div> *@
+   </div>
+   }
+   }
+   
+              @RenderBody()
+            <script src="~/lib/jquery/dist/jquery.min.js"></script>
+            <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+            @await RenderSectionAsync("Scripts", required: false)
+        
+    </div>
+</body>
+
+</html>

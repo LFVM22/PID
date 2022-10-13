@@ -1,0 +1,1936 @@
+@using Data
+@using Microsoft.EntityFrameworkCore
+@using Models
+@model Personagem
+
+<style>
+    #div_raca{visibility: hidden; display: none}
+    #div_classe{visibility: hidden; display: none}
+    #div_antecedente{visibility: hidden; display: none}
+    #div_equipamento{visibility: hidden; display: none}
+    #div_talento{visibility: hidden; display: none}
+    #div_magia{visibility: hidden; display: none}
+    .div_cabecalho_ficha{
+        display: flex;
+        flex-flow: row wrap;
+        border: 2px solid rgb(206, 162, 104);
+        vertical-align: middle;
+    }
+    *{color: white}
+    input{color: black};
+    button{color: black};
+    textarea{color: black}
+</style>
+
+<script src="~/js/ficha.js"></script>
+
+<hr>
+<div class="bar" style="text-align: center">
+    <button onclick="divs(this)" id="bio">Bio</button>
+    <button onclick="divs(this)" id="raca">Raça</button>
+    <button onclick="divs(this)" id="classe">Classe</button>
+    <button onclick="divs(this)" id="antecedente">Antecedentes</button>
+    <button onclick="divs(this)" id="talento">Talentos</button>
+    <button onclick="divs(this)" id="equipamento">Equipamentos</button>
+    <button onclick="divs(this)" id="magia">Magias</button>
+</div>
+<hr>
+<div class="div_cabecalho_ficha" style="height: auto">
+    <div style="float: left; min-width: 372px; heigth: auto">
+        <label for="" style="vertical-align: middle">
+            <h4 style="display: inline-block">Nome do Personagem:</h4>
+        </label>
+        <input type="text" disabled value="@Model.Nome" style="vertical-align: middle">
+    </div>
+    <div style="display: block; float: left; width: auto">
+        <p style="display: inline-block">Classe - Nível</p>
+        @foreach (var listaclasse in @ViewBag.listaclasse)
+        {
+            if (@Model.IdClasse == listaclasse.IdClasse)
+            {
+                <input type="text" name="" id="" style="display: inline-block" disabled value="@listaclasse.Nome - 1">
+            }
+        }
+
+    </div>
+    <div style="display: block; float: left; width: auto">
+        <p style="display: inline-block">Raça - SubRaça</p>
+        @foreach (var listaraca in @ViewBag.listaraca)
+        {
+            @foreach (var listasubraca in @ViewBag.listasubraca)
+            {
+                if (@Model.IdSubRaca == listasubraca.IdSubRaca && listasubraca.IdRaca == listaraca.IdRaca)
+                {
+                    <input type="text" style="display: inline-block" disabled value="@listaraca.Nome - @listasubraca.Nome">
+                }
+            }
+
+        }
+
+    </div>
+    <div style="display: block; float: left; width: auto">
+        <p style="display: inline-block">Antecedente</p>
+        @foreach (var listaantecedente in @ViewBag.listaantecedente)
+        {
+            if (@Model.IdAntecedente == listaantecedente.IdAntecedente)
+            {
+                <input type="text" disabled value="@listaantecedente.Nome">
+            }
+        }
+    </div>
+    <div style="display: block;; float: left; width: auto">
+        <p style="display: inline-block">Tendência</p>
+        @if (@Model.Tendencia == "LG")
+        {
+            <input type="text" disabled value="Leal e Bom">
+        }
+        else if (@Model.Tendencia == "LN")
+        {
+            <input type="text" disabled value="Leal e Neutro">
+        }
+        else if (@Model.Tendencia == "LE")
+        {
+            <input type="text" disabled value="Leal e Mal">
+        }
+        else if (@Model.Tendencia == "NG")
+        {
+            <input type="text" disabled value="Neutro e Bom">
+        }
+        else if (@Model.Tendencia == "TN")
+        {
+            <input type="text" disabled value="Totalmente Neutro">
+        }
+        else if (@Model.Tendencia == "NE")
+        {
+            <input type="text" disabled value="Neutro e Mal">
+        }
+        else if (@Model.Tendencia == "CG")
+        {
+            <input type="text" disabled value="Caótico e Bom">
+        }
+        else if (@Model.Tendencia == "CN")
+        {
+            <input type="text" disabled value="Caótico e Neutro">
+        }
+        else if (@Model.Tendencia == "CE")
+        {
+            <input type="text" disabled value="Caótico e Mal">
+        }
+        else
+        {
+            <input type="text" disabled value="Erro">
+        }
+
+
+    </div>
+</div>
+
+<div style="margin-top:1%">
+    <div id="div_bio" class="div" style="visibility: visible; display: block">
+        <div id="div_bio_atributos" style="width: 16vw; float: left">
+            <h4>Atributos</h4>
+            <div>
+                <div style="display: inline-block; width: 5vw;">
+                    Atributo
+                </div>
+                <div style="display: inline-block; width: 5vw;">
+                    Valor
+                </div>
+                <div style="display: inline-block; width: 5vw;">
+                    Modificador
+                </div>
+            </div>
+            <div>
+                <div class="div_atributos">
+                    Força
+                </div>
+                <div class="div_atributos">
+                    @Model.Forca
+                </div>
+                <div class="div_atributos">
+                    @Model.ModificadorForca
+                </div>
+            </div>
+            <div class="div_atributos">
+                Destreza
+            </div>
+            <div class="div_atributos">
+                @Model.Destreza
+            </div>
+            <div class="div_atributos">
+                @Model.ModificadorDestreza
+            </div>
+
+            <div class="div_atributos">
+                Constituição
+            </div>
+            <div class="div_atributos">
+                @Model.Constituicao
+            </div>
+            <div class="div_atributos">
+                @Model.ModificadorConstituicao
+            </div>
+
+            <div class="div_atributos">
+                Inteligência
+            </div>
+            <div class="div_atributos">
+                @Model.Inteligencia
+            </div>
+            <div class="div_atributos">
+                @Model.ModificadorInteligencia
+            </div>
+
+            <div class="div_atributos">
+                Sabedoria
+            </div>
+            <div class="div_atributos">
+                @Model.Sabedoria
+            </div>
+            <div class="div_atributos">
+                @Model.ModificadorSabedoria
+            </div>
+            <div class="div_atributos">
+                Carisma
+            </div>
+            <div class="div_atributos">
+                @Model.Carisma
+            </div>
+            <div class="div_atributos">
+                @Model.ModificadorCarisma
+            </div>
+
+        </div>
+        <div style="float: left;">
+            <table>
+                <tr>
+                    <td>
+                        <input type="text"
+                            style="height: 30px ; width: 30px; font-size: 20px; margin: 10px; margin-left: 100px;">
+                    </td>
+                    <td>
+                        <label>INSPIRAÇÃO</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text"
+                            style="height: 30px ; width: 30px; font-size: 20px; margin: 10px; margin-left: 100px;"
+                            asp-for="@Model.BonusProficiencia">
+                    </td>
+                    <td>
+                        <label>PROEFICIÊNCIA</label>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div style="display: inline-block; min-width: 276px; width: 276px; margin-top: 40px; margin-right: 20%;">
+
+            <table style="border: 1px solid; min-width: 276px; width: 276px;">
+                <tbody>
+                    <tr>
+                        <td style="min-width: 92px">
+                            @* @foreach (var listapersonagemarmadura in @ViewBag.listapersonagemarmadura)
+                            {
+                                @foreach (var listaarmadura in @ViewBag.listaarmadura)
+                                {
+                                    if(listaarmadura.IdArmadura == listapersonagemarmadura.IdArmadura && listapersonagemarmadura.IdPersonagem == Model.IdPersonagem){
+                                        <input type="text" style="height: 50px ; width: 50px; font-size: 40px;" value=@listaarmadura.CA>
+                                    }
+                                    
+                                }
+                            } *@
+                            <input type="text" style="height: 50px ; width: 50px; font-size: 40px;">
+                            <br>
+                            <label> CA </label>
+                        </td>
+
+                        <td style="min-width: 92px">
+                            <input type="text" style="height: 50px ; width: 50px; font-size: 40px;"
+                                value="@Model.ModificadorDestreza">
+                            <br>
+                            <label> Iniciativa </label>
+                        </td>
+                        <td style="min-width: 92px">
+                            @foreach (var listaraca in @ViewBag.listaraca)
+                            {
+
+                                if (listaraca.IdRaca == Model.IdRaca)
+                                {
+                                    <input type="text" style="height: 50px ; width: 50px; font-size: 30px;"
+                                value="@listaraca.Deslocamento">
+                                }
+
+                            }
+
+                            <br>
+                            <label> Deslocamento </label>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+
+
+        </div>
+        <br>
+
+
+        <div style="display: inline-block;float: left; border: 1px solid; margin-left: 5%;">
+            <div style="height: 25%;">
+                <center><label> SALVAGUARDAS </label></center>
+                <br>
+                <br>
+                <table>
+                    <tbody>               
+                        @* @foreach (var listaclasse in @ViewBag.listaclasse)
+                        {
+                            
+                            @if(@Model.IdClasse == @listaclasse.IdClasse)
+                            {
+                            <tr>
+                                @{var Forca = @listaclasse.Forca;}
+                                <td>           
+                                    <input type="radio" value=@listaclasse.Forca>
+                                </td>
+                                <td>
+                                    <input type="text" style="width: 13px; height: 13px;">
+                                </td>
+                                <td><label>Força</label></td>
+                            </tr>
+                            <tr>
+                                @{var Destreza = @listaclasse.Destreza;}
+                                <td>
+                                    <input type="radio" asp-for='@Destreza' value='@Destreza'>
+                                </td>
+                                <td>
+                                    <input type="text" size="1" style="width: 13px; height: 13px;">
+                                </td>
+                                <td><label>Destreza</label></td>
+                            </tr>
+                            <tr>
+                                @{var Constituicao = @listaclasse.Constituicao;}
+                                <td>
+                                    <input type="radio" asp-for='@Constituicao' value='@Constituicao'>
+                                </td>
+                                <td>
+                                    <input type="text" size="1" style="width: 13px; height: 13px;">
+                                </td>
+                                <td><label>Constituição</label></td>
+                            </tr>
+                            <tr>
+                                @{var Inteligencia = @listaclasse.Inteligencia;}
+                                <td>
+                                    <input type="radio" asp-for=@Inteligencia value=@Inteligencia>
+                                </td>
+                                <td>
+                                    <input type="text" size="1" style="width: 13px; height: 13px;">
+                                </td>
+                                <td><label>Inteligência</label></td>
+                            </tr>
+                            <tr>
+                                @{var Sabedoria = @listaclasse.Sabedoria;}
+                                <td>
+                                    <input type="radio" asp-for=@Sabedoria value=@Sabedoria>
+                                </td>
+                                <td>
+                                    <input type="text" size="1" style="width: 13px; height: 13px;">
+                                </td>
+                                <td><label>Sabedoria</label></td>
+                            </tr>
+                            <tr>
+                                @{var Carisma = @listaclasse.Carisma;}
+                                <td>
+                                    <input type="radio" asp-for=@Carisma value=@Carisma>
+                                </td>
+                                <td>
+                                    <input type="text" size="1" style="width: 13px; height: 13px;">
+                                </td>
+                                <td><label>Carisma</label></td>
+                            </tr>
+                            }
+                            
+                        } *@
+                        
+                            <tr>
+                                <td>           
+                                    <input type="radio">
+                                </td>
+                                <td>
+                                    <input type="text" style="width: 13px; height: 13px;">
+                                </td>
+                                <td><label>Força</label></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="radio">
+                                </td>
+                                <td>
+                                    <input type="text" size="1" style="width: 13px; height: 13px;">
+                                </td>
+                                <td><label>Destreza</label></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="radio">
+                                </td>
+                                <td>
+                                    <input type="text" size="1" style="width: 13px; height: 13px;">
+                                </td>
+                                <td><label>Constituição</label></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="radio">
+                                </td>
+                                <td>
+                                    <input type="text" size="1" style="width: 13px; height: 13px;">
+                                </td>
+                                <td><label>Inteligência</label></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="radio">
+                                </td>
+                                <td>
+                                    <input type="text" size="1" style="width: 13px; height: 13px;">
+                                </td>
+                                <td><label>Sabedoria</label></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="radio">
+                                </td>
+                                <td>
+                                    <input type="text" size="1" style="width: 13px; height: 13px;">
+                                </td>
+                                <td><label>Carisma</label></td>
+                            </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <br>
+            <div style="float: right; height: 75%; ">
+                <label> PERICIAS </label>
+                <br>
+                <br>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td><input type="radio" id="p_ac" asp-for="@Model.Acrobacia" value=@Model.Acrobacia></td>
+                            <td>
+                                @if(@Model.Acrobacia is true){
+                                    <input type="text" style="width: 26px; height: 26px;" value=@Model.BonusProficiencia+@Model.ModificadorDestreza>
+                                }
+                                else{
+                                    <input type="text" style="width: 26px; height: 26px;" value=@Model.ModificadorDestreza>
+                                }
+                            </td>
+                            <td><label>Acrobacia(DES)</label></td>
+                        </tr>
+                        <tr>
+                            <td><input type="radio" id="p_ar" asp-for="@Model.Arcanismo" value=@Model.Arcanismo></td>
+                            <td>
+                                @if(@Model.Arcanismo is true){
+                                    <input type="text" style="width: 26px; height: 26px;" value=@Model.BonusProficiencia+@Model.ModificadorInteligencia>
+                                }
+                                else{
+                                    <input type="text" style="width: 26px; height: 26px;" value=@Model.ModificadorInteligencia>
+                                }
+                            </td>
+                            <td><label>Arcanismo(INT)</label></td>
+                        </tr>
+                        <tr>
+                            <td><input type="radio" asp-for=@Model.Atletismo value=@Model.Atletismo></td>
+                            <td>
+                                @if(@Model.Atletismo is true){
+                                    <input type="text" style="width: 26px; height: 26px;" value='@(Model.BonusProficiencia+@Model.ModificadorForca)'>
+                                }
+                                else{
+                                    <input type="text" style="width: 26px; height: 26px;" value=@Model.ModificadorForca>
+                                }
+                            </td>
+                            <td><label>Atletismo(FOR)</label></td>
+                        </tr>
+                        <tr>
+                            <td><input type="radio" id="p_atu" asp-for="@Model.Atuacao" value=@Model.Atuacao></td>
+                            <td>
+                                @if(@Model.Atuacao is true){
+                                    <input type="text" style="width: 26px; height: 26px;" value='@(Model.BonusProficiencia+@Model.ModificadorCarisma)'>
+                                }
+                                else{
+                                    <input type="text" style="width: 26px; height: 26px;" value=@Model.ModificadorCarisma>
+                                }
+                            </td>
+                            <td><label>Atuação(CAR)</label></td>
+                        </tr>
+                        <tr>
+                            <td><input type="radio" id="p_bf" asp-for="@Model.Enganacao" value=@Model.Enganacao></td>
+                            <td>
+                                @if(@Model.Enganacao is true){
+                                    <input type="text" style="width: 26px; height: 26px;" value='@(Model.BonusProficiencia+@Model.ModificadorCarisma)'>
+                                }
+                                else{
+                                    <input type="text" style="width: 26px; height: 26px;" value=@Model.ModificadorCarisma>
+                                }
+                            </td>
+                            <td><label>Enganação(CAR)</label></td>
+                        </tr>
+                        <tr>
+                            <td><input type="radio" id="p_fu" asp-for="@Model.Furtividade" value=@Model.Furtividade></td>
+                            <td>
+                                @if(@Model.Furtividade is true){
+                                    <input type="text" style="width: 26px; height: 26px;" value='@(Model.BonusProficiencia+@Model.ModificadorDestreza)'>
+                                }
+                                else{
+                                    <input type="text" style="width: 26px; height: 26px;" value=@Model.ModificadorDestreza>
+                                }
+                            </td>
+                            <td><label>Furtividade(DES)</label></td>
+                        </tr>
+                        <tr>
+                            <td><input type="radio" id="p_hs" asp-for="@Model.Historia" value=@Model.Historia></td>
+                            <td>
+                                @if(@Model.Historia is true){
+                                    <input type="text" style="width: 26px; height: 26px;" value='@(Model.BonusProficiencia+@Model.ModificadorInteligencia)'>
+                                }
+                                else{
+                                    <input type="text" style="width: 26px; height: 26px;" value=@Model.ModificadorInteligencia>
+                                }
+                            </td>
+                            <td><label>História(INT)</label></td>
+                        </tr>
+                        <tr>
+                            <td><input type="radio" id="p_it" asp-for="@Model.Intimidacao" value=@Model.Intimidacao></td>
+                            <td>
+                                @if(@Model.Intimidacao is true){
+                                    <input type="text" style="width: 26px; height: 26px;" value='@(Model.BonusProficiencia+@Model.ModificadorCarisma)'>
+                                }
+                                else{
+                                    <input type="text" style="width: 26px; height: 26px;" value=@Model.ModificadorCarisma>
+                                }
+                            </td>
+                            <td><label>Intimidação(CAR)</label></td>
+                        </tr>
+                        <tr>
+                            <td><input type="radio" id="p_ic" asp-for="@Model.Intuicao" value=@Model.Intuicao></td>
+                            <td>
+                                @if(@Model.Intuicao is true){
+                                    <input type="text" style="width: 26px; height: 26px;" value='@(Model.BonusProficiencia+@Model.ModificadorSabedoria)'>
+                                }
+                                else{
+                                    <input type="text" style="width: 26px; height: 26px;" value=@Model.ModificadorSabedoria>
+                                }
+                            </td>
+                            <td><label>Intuição(SAB)</label></td>
+                        </tr>
+                        <tr>
+                            <td><input type="radio" id="p_iv" asp-for="@Model.Investigacao" value=@Model.Investigacao></td>
+                            <td>
+                                @if(@Model.Investigacao is true){
+                                    <input type="text" style="width: 26px; height: 26px;" value='@(Model.BonusProficiencia+@Model.ModificadorInteligencia)'>
+                                }
+                                else{
+                                    <input type="text" style="width: 26px; height: 26px;" value=@Model.ModificadorInteligencia>
+                                }
+                            </td>
+                            <td><label>Investigação(INT)</label></td>
+                        </tr>
+                        <tr>
+                            <td><input type="radio" id="p_la" asp-for="@Model.LidarcomAnimais" value=@Model.LidarcomAnimais></td>
+                            <td>
+                                @if(@Model.LidarcomAnimais is true){
+                                    <input type="text" style="width: 26px; height: 26px;" value='@(Model.BonusProficiencia+@Model.ModificadorSabedoria)'>
+                                }
+                                else{
+                                    <input type="text" style="width: 26px; height: 26px;" value=@Model.ModificadorSabedoria>
+                                }
+                            </td>
+                            <td><label>Lidar com Animais(SAB)</label></td>
+                        </tr>
+                        <tr>
+                            <td><input type="radio" id="p_md" asp-for="@Model.Medicina" value=@Model.Medicina></td>
+                            <td>
+                                @if(@Model.Medicina is true){
+                                    <input type="text" style="width: 26px; height: 26px;" value='@(Model.BonusProficiencia+@Model.ModificadorSabedoria)'>
+                                }
+                                else{
+                                    <input type="text" style="width: 26px; height: 26px;" value=@Model.ModificadorSabedoria>
+                                }
+                            </td>
+                            <td><label>Medicina(SAB)</label></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="radio" id="p_nt" asp-for="@Model.Natureza" value=@Model.Natureza>
+                            </td>
+                            <td>
+                                @if(@Model.Natureza is true){
+                                    <input type="text" style="width: 26px; height: 26px;" value='@(Model.BonusProficiencia+@Model.ModificadorInteligencia)'>
+                                }
+                                else{
+                                    <input type="text" style="width: 26px; height: 26px;" value=@Model.ModificadorInteligencia>
+                                }
+                            </td>
+                            <td><label>Natureza(INT)</label></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="radio" id="p_la" asp-for="@Model.Percepcao" value=@Model.Percepcao>
+                            </td>
+                            <td>
+                                @if(@Model.Percepcao is true){
+                                    <input type="text" style="width: 26px; height: 26px;" value='@(Model.BonusProficiencia+@Model.ModificadorSabedoria)'>
+                                }
+                                else{
+                                    <input type="text" style="width: 26px; height: 26px;" value=@Model.ModificadorSabedoria>
+                                }
+                            </td>
+                            <td><label>Percepção(SAB)</label></td>
+                        </tr>
+                        <tr>
+                            <td><input type="radio" id="p_la" asp-for="@Model.Persuasao" value=@Model.Persuasao></td>
+                            <td>
+                                @if(@Model.Persuasao is true){
+                                    <input type="text" style="width: 26px; height: 26px;" value='@(Model.BonusProficiencia+@Model.ModificadorSabedoria)'>
+                                }
+                                else{
+                                    <input type="text" style="width: 26px; height: 26px;" value=@Model.ModificadorSabedoria>
+                                }
+                            </td>
+                            <td><label>Persuasão(SAB)</label></td>
+                        </tr>
+                        <tr>
+                            <td><input type="radio" id="p_la" asp-for="@Model.Prestidigitacao" value=@Model.Prestidigitacao></td>
+                            <td>
+                                @if(@Model.Prestidigitacao is true){
+                                    <input type="text" style="width: 26px; height: 26px;" value='@(Model.BonusProficiencia+@Model.ModificadorDestreza)'>
+                                }
+                                else{
+                                    <input type="text" style="width: 26px; height: 26px;" value=@Model.ModificadorDestreza>
+                                }
+                            </td>
+                            <td><label>Pretisdigitação(DES)</label></td>
+                        </tr>
+                        <tr>
+                            <td><input type="radio" id="p_la" asp-for="@Model.Religiao" value=@Model.Religiao></td>
+                            <td>
+                                @if(@Model.Religiao is true){
+                                    <input type="text" style="width: 26px; height: 26px;" value='@(Model.BonusProficiencia+@Model.ModificadorInteligencia)'>
+                                }
+                                else{
+                                    <input type="text" style="width: 26px; height: 26px;" value=@Model.ModificadorInteligencia>
+                                }
+                            </td>
+                            <td><label>Religião(INT)</label></td>
+                        </tr>
+                        <tr>
+                            <td><input type="radio" id="p_la" asp-for="@Model.Sobrevivencia" value=@Model.Sobrevivencia></td>
+                            <td>
+                                @if(@Model.Sobrevivencia is true){
+                                    <input type="text" style="width: 26px; height: 26px;" value='@(Model.BonusProficiencia+@Model.ModificadorSabedoria)'>
+                                }
+                                else{
+                                    <input type="text" style="width: 26px; height: 26px;" value=@Model.ModificadorSabedoria>
+                                }
+                            </td>
+                            <td><label>Sobrevivência(SAB)</label></td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+
+
+        </div>
+        <div style="float: rigth; margin-left: 70%; margin-top: -5%;">
+            <label for="nm">Traços de Personalidade:</label>
+            <br>
+            <textarea rows="10" cols="40" disabled>@Model.Traco</textarea>
+
+            <br>
+            <label for="nm">Ideais:</label>
+            <br>
+            <textarea rows="10" cols="40" disabled>@Model.Ideal</textarea>
+            <br>
+            <label for="nm">Vínculos:</label>
+            <br>
+            <textarea rows="10" cols="40" disabled>@Model.Vinculo</textarea>
+            <br>
+            <label for="nm">Fraquezas:</label>
+            <br>
+            <textarea rows="10" cols="40" disabled>@Model.Defeito</textarea>
+            <br>
+            <br>
+            <br>
+            <label for="nm">História:</label>
+            <br>
+            <textarea rows="10" cols="40" disabled>@Model.Bio</textarea>
+        </div>
+    </div>
+    <div id="div_raca" class="div">
+        @foreach (var listaraca in ViewBag.listaraca)
+        {
+            if (Model.IdRaca == listaraca.IdRaca)
+            {
+                <h1>@listaraca.Nome</h1>
+                string Habilidade = null;
+                @if (listaraca.BonusConstituicao != null)
+                {
+                    Habilidade = listaraca.BonusConstituicao + " de bônus de Constituição";
+                }
+                @if (listaraca.BonusForca != null)
+                {
+                    if (Habilidade != null)
+                    {
+                        Habilidade = Habilidade + " e " + listaraca.BonusForca + " de bônus de Força";
+                    }
+                    else
+                    {
+                        Habilidade = listaraca.BonusForca + " de bônus de Força";
+                    }
+                }
+                @if (listaraca.BonusDestreza != null)
+                {
+                    if (Habilidade != null)
+                    {
+                        Habilidade = Habilidade + " e " + listaraca.BonusDestreza + " de bônus de Destreza";
+                    }
+                    else
+                    {
+                        Habilidade = listaraca.BonusDestreza + " de bônus de Destreza";
+                    }
+                }
+                @if (listaraca.BonusInteligencia != null)
+                {
+                    if (Habilidade != null)
+                    {
+                        Habilidade = Habilidade + " e " + listaraca.BonusInteligencia + " de bônus de Inteligência";
+                    }
+                    else
+                    {
+                        Habilidade = listaraca.BonusInteligencia + " de bônus de Inteligência";
+                    }
+                }
+                @if (listaraca.BonusSabedoria != null)
+                {
+                    if (Habilidade != null)
+                    {
+                        Habilidade = Habilidade + " e " + listaraca.BonusSabedoria + " de bônus de Sabedoria";
+                    }
+                    else
+                    {
+                        Habilidade = listaraca.BonusSabedoria + " de bônus de Sabedoria";
+                    }
+                }
+                @if (listaraca.BonusCarisma != null)
+                {
+                    if (Habilidade != null)
+                    {
+                        Habilidade = Habilidade + " e " + listaraca.BonusCarisma + " de bônus de Carisma";
+                    }
+                    else
+                    {
+                        Habilidade = listaraca.BonusCarisma + " de bônus de Carisma";
+                    }
+                }
+
+                <div>
+                    <h2>@listaraca.Nome</h2>
+                    <h3>Aumento no valor de habilidade: @Habilidade</h3>
+                    <hr>
+                    <h3>Tamanho: @listaraca.Tamanho</h3>
+                    <hr>
+                    <h3>Idade: Até @listaraca.Idade anos</h3>
+                    <hr>
+                    <h3>Deslocamento: @listaraca.Deslocamento m</h3>
+                    <hr>
+                    @foreach (var listahabilidaderaca in @ViewBag.listahabilidaderaca)
+                    {
+                        if (listahabilidaderaca.IdRaca == listaraca.IdRaca)
+                        {
+                            var habracaidhab = listahabilidaderaca.IdHabilidadeRacial;
+                            foreach (var listahabilidade in @ViewBag.listahabilidade)
+                            {
+                                if (listahabilidade.IdHabilidadeRacial == habracaidhab)
+                                {
+                                    <h3>@listahabilidade.Nome</h3>
+                                    <h4>@listahabilidade.Descricao</h4>
+                                    <br>
+                                }
+                            }
+                        }
+                    }
+                    <hr>
+                    @foreach (var listasubraca in @ViewBag.listasubraca)
+                    {
+                        if (listasubraca.IdRaca == listaraca.IdRaca)
+                        {
+
+                            Habilidade = null;
+                            @if (listasubraca.BonusConstituicao != null)
+                            {
+                                Habilidade = listasubraca.BonusConstituicao + " de bônus de Constituição";
+                            }
+                            @if (listasubraca.BonusForca != null)
+                            {
+                                if (Habilidade != null)
+                                {
+                                    Habilidade = Habilidade + " e " + listasubraca.BonusForca + " de bônus de Força";
+                                }
+                                else
+                                {
+                                    Habilidade = listasubraca.BonusForca + " de bônus de Força";
+                                }
+                            }
+                            @if (listasubraca.BonusDestreza != null)
+                            {
+                                if (Habilidade != null)
+                                {
+                                    Habilidade = Habilidade + " e " + listasubraca.BonusDestreza + " de bônus de Destreza";
+                                }
+                                else
+                                {
+                                    Habilidade = listasubraca.BonusDestreza + " de bônus de Destreza";
+                                }
+                            }
+                            @if (listasubraca.BonusInteligencia != null)
+                            {
+                                if (Habilidade != null)
+                                {
+                                    Habilidade = Habilidade + " e " + listasubraca.BonusInteligencia + " de bônus de Inteligência";
+                                }
+                                else
+                                {
+                                    Habilidade = listasubraca.BonusInteligencia + " de bônus de Inteligência";
+                                }
+                            }
+                            @if (listasubraca.BonusSabedoria != null)
+                            {
+                                if (Habilidade != null)
+                                {
+                                    Habilidade = Habilidade + " e " + listasubraca.BonusSabedoria + " de bônus de Sabedoria";
+                                }
+                                else
+                                {
+                                    Habilidade = listasubraca.BonusSabedoria + " de bônus de Sabedoria";
+                                }
+                            }
+                            @if (listasubraca.BonusCarisma != null)
+                            {
+                                if (Habilidade != null)
+                                {
+                                    Habilidade = Habilidade + " e " + listasubraca.BonusCarisma + " de bônus de Carisma";
+                                }
+                                else
+                                {
+                                    Habilidade = listasubraca.BonusCarisma + " de bônus de Carisma";
+                                }
+                            }
+
+                            <h3>Nome: @listasubraca.Nome</h3>
+                            <h3>Aumento no Valor de Habilidade: @Habilidade</h3>
+                            <hr>
+
+                            @foreach (var listahabilidadesubraca in @ViewBag.listahabilidadesubraca)
+                            {
+                                if (listahabilidadesubraca.IdSubRaca == listasubraca.IdSubRaca)
+                                {
+                                    var habracaidhab = listahabilidadesubraca.IdHabilidadeRacial;
+                                    foreach (var listahabilidade in @ViewBag.listahabilidade)
+                                    {
+                                        if (listahabilidade.IdHabilidadeRacial == habracaidhab)
+                                        {
+                                            <h3>@listahabilidade.Nome</h3>
+                                            <h4>@listahabilidade.Descricao</h4>
+                                            <br>
+                                            <hr>
+                                            <hr>
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                </div>
+            }
+        }
+    </div>
+    <div id="div_classe" class="div">
+
+        
+        @foreach (var listaclasse in @ViewBag.listaclasse)
+        {
+            if (@Model.IdClasse == listaclasse.IdClasse)
+            {
+                <h3>@listaclasse.Nome</h3>
+                <h4>Dado de vida: @("d"+@listaclasse.DadoVida) por nível de @listaclasse.Nome</h4>
+                <h4>Pontos de vida nos níveis subsequêntes: @("d"+@listaclasse.DadoVida) + Modificador de Constituição
+                    (@Model.ModificadorConstituicao)</h4>
+
+                if(@Model.IdClasse == 1)
+                {
+                    <table class="tabeladefinicoes">
+                        <thead>
+                            <tr>
+                                <td>
+                                    <h4>Nível</h4>
+                                </td>
+                                <td>
+                                    <h4>Bônus de <br>Proficiência</h4>
+                                </td>
+                                <td>
+                                    <h4>Características</h4>
+                                </td>
+                                <td>
+                                    <h4>Fúrias</h4>
+                                </td>
+                                <td>
+                                    <h4>Dano de Fúria</h4>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <h5>1°</h5>
+                                </td>
+                                <td>
+                                    <h5>+2</h5>
+                                </td>
+                                <td>
+                                    <h5>Fúria, Defesa sem Armadura</h5>
+                                </td>
+                                <td>
+                                    <h5>2</h5>
+                                </td>
+                                <td>
+                                    <h5>+2</h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h5>2°</h5>
+                                </td>
+                                <td>
+                                    <h5>+2</h5>
+                                </td>
+                                <td>
+                                    <h5>Ataque Descuidado, Sentido do Perigo</h5>
+                                </td>
+                                <td>
+                                    <h5>2</h5>
+                                </td>
+                                <td>
+                                    <h5>+2</h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h5>3°</h5>
+                                </td>
+                                <td>
+                                    <h5>+2</h5>
+                                </td>
+                                <td>
+                                    <h5>Caminho Primitivo</h5>
+                                </td>
+                                <td>
+                                    <h5>3</h5>
+                                </td>
+                                <td>
+                                    <h5>+2</h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h5>4°</h5>
+                                </td>
+                                <td>
+                                    <h5>+2</h5>
+                                </td>
+                                <td>
+                                    <h5>Incremento no Valor de Habilidade</h5>
+                                </td>
+                                <td>
+                                    <h5>3</h5>
+                                </td>
+                                <td>
+                                    <h5>+2</h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h5>5°</h5>
+                                </td>
+                                <td>
+                                    <h5>+3</h5>
+                                </td>
+                                <td>
+                                    <h5>Ataque Extra, Movimento Rápido</h5>
+                                </td>
+                                <td>
+                                    <h5>3</h5>
+                                </td>
+                                <td>
+                                    <h5>+2</h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h5>6°</h5>
+                                </td>
+                                <td>
+                                    <h5>+3</h5>
+                                </td>
+                                <td>
+                                    <h5>Característica de Caminho Primitivo</h5>
+                                </td>
+                                <td>
+                                    <h5>4</h5>
+                                </td>
+                                <td>
+                                    <h5>+2</h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h5>7°</h5>
+                                </td>
+                                <td>
+                                    <h5>+3</h5>
+                                </td>
+                                <td>
+                                    <h5>Instinto Selvagem</h5>
+                                </td>
+                                <td>
+                                    <h5>4</h5>
+                                </td>
+                                <td>
+                                    <h5>+2</h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h5>8°</h5>
+                                </td>
+                                <td>
+                                    <h5>+3</h5>
+                                </td>
+                                <td>
+                                    <h5>Incremento no Valor de Habilidade</h5>
+                                </td>
+                                <td>
+                                    <h5>4</h5>
+                                </td>
+                                <td>
+                                    <h5>+2</h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h5>9°</h5>
+                                </td>
+                                <td>
+                                    <h5>+4</h5>
+                                </td>
+                                <td>
+                                    <h5>Crítico Brutal (+1 dado)</h5>
+                                </td>
+                                <td>
+                                    <h5>4</h5>
+                                </td>
+                                <td>
+                                    <h5>+3</h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h5>10°</h5>
+                                </td>
+                                <td>
+                                    <h5>+4</h5>
+                                </td>
+                                <td>
+                                    <h5>Característica de Caminho Primitivo</h5>
+                                </td>
+                                <td>
+                                    <h5>4</h5>
+                                </td>
+                                <td>
+                                    <h5>+3</h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h5>11°</h5>
+                                </td>
+                                <td>
+                                    <h5>+4</h5>
+                                </td>
+                                <td>
+                                    <h5>Fúria Implacável</h5>
+                                </td>
+                                <td>
+                                    <h5>4</h5>
+                                </td>
+                                <td>
+                                    <h5>+3</h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h5>12°</h5>
+                                </td>
+                                <td>
+                                    <h5>+4</h5>
+                                </td>
+                                <td>
+                                    <h5>Incremento no Valor de Habilidade</h5>
+                                </td>
+                                <td>
+                                    <h5>5</h5>
+                                </td>
+                                <td>
+                                    <h5>+3</h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h5>13°</h5>
+                                </td>
+                                <td>
+                                    <h5>+5</h5>
+                                </td>
+                                <td>
+                                    <h5>Crítico Brutal (+2 dados)</h5>
+                                </td>
+                                <td>
+                                    <h5>5</h5>
+                                </td>
+                                <td>
+                                    <h5>+3</h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h5>14°</h5>
+                                </td>
+                                <td>
+                                    <h5>+5</h5>
+                                </td>
+                                <td>
+                                    <h5>Característica de Caminho Primitivo</h5>
+                                </td>
+                                <td>
+                                    <h5>5</h5>
+                                </td>
+                                <td>
+                                    <h5>+3</h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h5>15°</h5>
+                                </td>
+                                <td>
+                                    <h5>+5</h5>
+                                </td>
+                                <td>
+                                    <h5>Fúria Persistente</h5>
+                                </td>
+                                <td>
+                                    <h5>5</h5>
+                                </td>
+                                <td>
+                                    <h5>+3</h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h5>16°</h5>
+                                </td>
+                                <td>
+                                    <h5>+5</h5>
+                                </td>
+                                <td>
+                                    <h5>Incremento no Valor de Habilidade</h5>
+                                </td>
+                                <td>
+                                    <h5>5</h5>
+                                </td>
+                                <td>
+                                    <h5>+4</h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h5>17°</h5>
+                                </td>
+                                <td>
+                                    <h5>+6</h5>
+                                </td>
+                                <td>
+                                    <h5>Crítico Brutal (+3 dados)</h5>
+                                </td>
+                                <td>
+                                    <h5>6</h5>
+                                </td>
+                                <td>
+                                    <h5>+4</h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h5>18°</h5>
+                                </td>
+                                <td>
+                                    <h5>+6</h5>
+                                </td>
+                                <td>
+                                    <h5>Força Indomável</h5>
+                                </td>
+                                <td>
+                                    <h5>6</h5>
+                                </td>
+                                <td>
+                                    <h5>+4</h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h5>19°</h5>
+                                </td>
+                                <td>
+                                    <h5>+6</h5>
+                                </td>
+                                <td>
+                                    <h5>Incremento no Valor de Habilidade</h5>
+                                </td>
+                                <td>
+                                    <h5>6</h5>
+                                </td>
+                                <td>
+                                    <h5>+4</h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h5>20°</h5>
+                                </td>
+                                <td>
+                                    <h5>+6</h5>
+                                </td>
+                                <td>
+                                    <h5>Campeão Primitivo</h5>
+                                </td>
+                                <td>
+                                    <h5>Ilimitado</h5>
+                                </td>
+                                <td>
+                                    <h5>+4</h5>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                }
+
+                @foreach(var listatraco in @ViewBag.listatraco){
+                    @foreach(var listaclassetracosdeclasse in @ViewBag.listaclassetracosdeclasse){
+                         if(listatraco.IdTracodeClasse == listaclassetracosdeclasse.IdTracodeClasse && listaclasse.IdClasse == listaclassetracosdeclasse.IdClasse && listaclasse.IdClasse == @Model.IdClasse)
+                    {
+                        <h5>@listatraco.HabilidadeTracodeClasse</h5>
+                    }
+                    }
+                   
+                }
+            }
+        }
+        @* <div name="características">
+            <h1>Características de Classe</h1>
+            <hr>
+            <h3>Pontos de Vida</h3>
+            <h4>Dados de Vida: 1d12 por nível de bárbaro</h4>
+            <h4>Pontos de Vida no 1° Nível: 12 + modificador de Constituição</h4>
+            <h4>Pontos de Vida nos Níveis Seguintes: 1d12 (ou 7) + modificador de Constituição por nível
+            após o
+            primeiro
+            nível</h4>
+            <h3>Proficiências</h3>
+            <h4>Armaduras: Armaduras leves, armaduras médias e escudos</h4>
+            <h4>Armas: Armas simples e armas marciais</h4>
+            <h4>Ferramentas: Nenhuma</h4>
+            <h4>Testes de Resistência: Força, Constituição</h4>
+            <h4>Perícias: Escolha duas dentre Adestrar Animais, Atletismo, Intimidação, Natureza, Percepção
+            e
+            Sobrevivência
+            </h4>
+            <h3>Equipamentos</h3>
+            <h4>Um machado grande ou qualquer arma marcial corpo-a-corpo</h4>
+            <h4>Dois machados de mão ou qualquer arma simples</h4>
+            <h4>Um pacote de aventureiro e quatro azagaias</h4>
+            </div>
+            <div name="furia">
+            <h2>Fúria</h2>
+            <hr>
+            <h4>Durante seu turno, você pode entrar em modo de fúria com uma ação bônus. Enquanto no modo de
+            fúria,
+            recebe
+            os seguintes atributos se não estiver vestindo armaduras pesadas:</h4>
+            <ul>
+            <li>
+            <h4>Vantagem em testes de Força e testes de resistência de Força;</h4>
+            </li>
+            <li>
+            <h4>Ao atacar com arma corpo-a-corpo usando Força, recebe um bônus nas jogadas de dano,
+            que
+            aumenta conforme
+            mostrado na coluna Dano de Fúria da tabela O Bárbaro;</h4>
+            </li>
+            <li>
+            <h4>Você possui resistência contra dano de concussão, cortante e perfurante</h4>
+            </li>
+            </ul>
+            <h4>Se for capaz de conjurar magias, não poderá conjurá-las ou concentrar nelas enquanto em
+            fúria.
+            </h4>
+            <h4>Sua fúria dura por 1 minuto. Ela termina prematuramente se você cair inconsciente ou se seu
+            turno
+            acabar e
+            você não tiver atacado nenhuma criatura hostil desde seu último turno ou não tiver sofrido
+            dano
+            nesse período.
+            Você também pode terminar sua fúria no seu turno com uma ação bônus. </h4>
+
+            <h4>Quando você tiver usado a quantidade de fúrias mostrada para o seu nível de bárbaro na
+            coluna
+            Fúrias
+            da
+            tabela O Bárbaro, você precisará terminar um descanso longo antes de poder entrar em fúria
+            novamente.</h4>
+            </div>
+            <div name="defesasemarmadura">
+            <h2>Defesa sem Armadura</h2>
+            <hr>
+
+            <h4>Quando não estiver vestindo armadura, sua Classe de Armadura será 10 + seu modificador de
+            Destreza +
+            seu
+            modificador de Constituição. Este benefício ainda será concedido se estiver usando um escudo
+            </h4>
+            </div>
+            <div name="ataquedescuidado">
+            <h2>Ataque Descuidado</h2>
+            <hr>
+            <h4>A partir do 2° nível, ao realizar seu primeiro ataque num turno, você pode optar por atacar
+            descuidadamente,
+            garantindo vantagem nas jogadas de ataque com armas corpo-a-corpo usando Força durante seu
+            turno.
+            Entretanto,
+            todas as jogadas de ataque contra você, até o início de seu próximo turno, terão vantagem
+            </h4>
+            </div>
+
+            <h2>Sentido de Perigo</h2>
+            <hr>
+            <h4>A partir do 2° nível você possui vantagem em testes de resistência de Destreza contra efeitos
+            que
+            você possa
+            ver, como armadilhas e magias. Para se aproveitar desse efeito, você não pode estar cego, surdo
+            ou
+            incapacitado</h4>
+
+            <h2>Caminho Primitivo</h2>
+            <hr>
+            <h4>Permite que, no 3° nível, escolha um caminho, sendo o Caminho do Furioso ou o Caminho do
+            Guerreiro
+            Totêmico
+            </h4>
+
+            <h2>Incremento no Valor de Habilidade</h2>
+            <hr>
+            <h4>Permite que, nos níveis 4, 8, 12, 16 e 19, aumente o valor de uma habilidade à sua escolha em 2
+            ou
+            de duas
+            habilidade em 1. Uma habilidade não pode possuir um valor que 20</h4>
+
+            <h2>Ataque Extra</h2>
+            <hr>
+            <h4>A partir do nível 5, você possuirá mais uma jogada de ataque em seu turno</h4>
+
+            <h2>Movimento Rápido</h2>
+            <hr>
+            <h4>Começando no 5° nível, seu deslocamento aumenta em 3m enquanto não estiver usando uma armadura
+            pesada</h4>
+
+            <h2>Instinto Brutal</h2>
+            <hr>
+            <h4>No 7° nível você passará a receber vantagem em jogadas de iniciativa. Além disso, se um combate
+            iniciar de
+            surpresa, ao ativar sua fúria como primeira ação do combate, você poderá agir normalmente em seu
+            primeiro
+            turno</h4>
+
+            <h2>Crítico Brutal</h2>
+            <hr>
+            <h4>A partir do 9° nível, você pode rolar um dado de dano de arma adicional quando estiver
+            determinando
+            o dano
+            extra de um acerto crítico com arma corpo-a-corpo. Isso aumenta para dois dados adicionais no
+            núvel
+            13 e três
+            dados adicionais no nível 17</h4>
+
+            <h2>Fúria Implacável</h2>
+            <hr>
+            <h4>A partir do 11° nível, enquanto estiver em fúria e seus pontos de vida caírem para 0 ou menos -
+            e
+            não morrer
+            -, você pode fazer um teste de resistência de Constituição, cujo Coeficiente de Dificuldade é
+            10,
+            para
+            continuar no combate e ter seus pontos de vida mantidos em 1. Cada vez que passar no teste, o
+            Coeficiente de
+            Dificuldade aumenta em 5, sendo restaurado para 10 após um descanso curto com longo</h4>
+
+            <h2>Fúria Persistente</h2>
+            <hr>
+            <h4>A partir do 15° nível, sua fúria só pode ser terminada prematuramente caso caia incosciente ou
+            decida
+            terminá-la</h4>
+
+            <h2>Força Indomável</h2>
+            <hr>
+            <h4>A partir do 18° nível, se o total de um teste de Força seu for menor que o seu valor de Força,
+            você
+            pode
+            usar esse valor no lugar do resultado</h4>
+
+            <h2>Campeão Primitivo</h2>
+            <hr>
+            <h4>No 20° nível, seus valores de Força e Constituição aumentam em 4, além de seus limites subirem
+            para
+            24</h4>
+
+            <h1>Caminho Primitivo</h1>
+
+            <h2>Caminho do Furioso</h2>
+            <hr>
+            <h3>Frenesi</h3>
+            <h4>Começando no 3° nível, nos turnos subsequentes ao ativar sua fúria, você pode realizar um ataque
+            bônus com
+            uma arma corpo-a-corpo. Ao fim de sua fúria, sofrerá de exaustão</h4>
+
+            <h3>Fúria Inconsciente</h3>
+            <h4>A partir do 6° nível, enquanto estiver em fúria, você não pode ser enfeitiçado ou amedrontado.
+            Estes
+            estados
+            são cortados quando você entrar em fúria</h4>
+
+            <h3>Presença Intimidante</h3>
+            <h4>A partir do 10° nível, use uma ação para amedrontar uma criatura a até 9m de você -que você
+            veja-,
+            que possa
+            ver e ouvir você. A criatura deve ser bem sucedida em um teste de resistência de Sabedoria, cujo
+            Coeficiente
+            de Dificuldade é 8 + bônus de proficiência + modificador de Carisma, ou ficará com medo de você
+            até
+            o fim do
+            seu próximo turno. Nos turno seguintes, você pode usar uma ação para estender a duração desse
+            efeito
+            na
+            criatura amedrontada até o início do seu próximo turno. Esse feito termina se a criatura
+            terminar
+            seu turno
+            fora da sua linha de visão ou a mais de 18m de você. Se a criatura for bem sucedida no teste de
+            resistência,
+            você não poderá usar essa habilidade na mesma criatura durante as próximas 24h</h4>
+
+            <h3>Retaliação</h3>
+            <h4>A partir do 14° nível, quando sofrer dano de uma criatura que esteja a até 1.5m de você, você
+            pode
+            realizar
+            uma jogada de reação e desferir um ataque corpo-a-corpo com arma contra a criatura</h4>
+
+            <br>
+            <h2>Caminho do Guerreiro Totêmico</h2>
+            <hr>
+
+            <h3>Conselheiro Espiritual</h3>
+            <h4>A partir do 3° nível você recebe a habilidade de conjurar as magias Sentido Bestial e Falar com
+            Animais, mas
+            apenas como rituais.</h4>
+
+            <h3>Totem Espiritual</h3>
+            <h4>A partir do 3° nível, você escolhe um totem espiritual e ganha suas características. O totem
+            deve
+            ser
+            relacionado aos animais listados abaixo, podendo ser utilizado animais similares, como falcões
+            ou
+            coiotes:
+            </h4>
+            <ul>
+            <li>
+            <h4>Águia: Enquanto em fúria -e não estiver trajando armaduras pesadas-, criaturas terão
+            desvantagem em
+            jogadas de atauqe de oportunidade contra você. Você adquire a habilidade de usar sua uma
+            ação bônus para
+            Disparar</h4>
+            </li>
+            <li>
+            <h4>Lobo: Quando estiver em fúria, seus amigos têm vantagem nas jogadas de ataque
+            corpo-a-corpo
+            realizadas
+            contra qualquer criatura a até 1.5m de você e que seja hostil a você</h4>
+            </li>
+            <li>
+            <h4>Urso: Quando em fúria, adquire resistência a todos os tipos de dano, esceto dano
+            psíquico
+            </h4>
+            </li>
+            </ul>
+
+            <h3>Aspecto da Besta</h3>
+            <h4>No 6° nível você adquire um benefício místico baseado no totem escolhido. Você pode escolher o
+            mesmo
+            animal
+            do nível 3 ou um diferente:</h4>
+            <ul>
+            <li>
+            <h4>Águia: Você pode ver a até 1.6km sem dificuldade, além disso, penumbra não impõem
+            desvantagem nos testes
+            de Percepção</h4>
+            </li>
+            <li>
+            <h4>Lobo: Você pode rastrear outras criaturas enquanto estiver viajando rápido e pode se
+            mover
+            furtivamente
+            enquanto estiver viajando a passo normal</h4>
+            </li>
+            <li>
+            <h4>Urso: Sua capacidade de carga é dobrada e você tem vantagem em testes de Força
+            realizados
+            para empurrar,
+            puxar, erquer ou quebrar objetos</h4>
+            </li>
+            </ul>
+
+            <h3>Andarilho Espiritual</h3>
+            <h4>No 10° nível, você pode conjuara a magia Comunhão com a Natureza, mas apenas como ritual. Ao
+            fazer
+            isso, uma
+            versão espiritual de um dos animais que você escolheu como Totem Espiritual ou Aspecto da Besta
+            aparece para
+            você para transmitir a informação que você busca</h4>
+
+            <h3>Sintonia Totêmica</h3>
+            <h4>No 14° nível você ganha um benefício mágico baseado em um totem animal à sua escolha. Você pode
+            escolher o
+            mesmo animal que selecionou anteriormente ou um diferente:</h4>
+            <ul>
+            <li>
+            <h4>Águia: Quando estiver em fúria, adquire um descolamento de voo igual ao seu deslocamento
+            de
+            caminhada.
+            Este benefício só funciona em pequenas explosões, cessando se concluir seu turno voando
+            </h4>
+            </li>
+            <li>
+            <h4>Lobo: Quando estiver em fúria, você pode usar uma ação bônus no seu turno para derrubar
+            uma
+            criatura
+            Grande ou menor no chão quando você atingí-la com um ataque corpo-a-corpo com arma</h4>
+            </li>
+            <li>
+            <h4>Urso: Quando estiver em fúria, qualquer criatura a até 1.5m de você e que for hostil
+            contra
+            você terá
+            desvantagem nas jogadas de ataque contra outros alvos ou outro personagem com essa
+            característica. Um
+            inimigo é imune a esse efeito se ele não puder ver ou ouvir você ou caso ele não possa
+            ser
+            amedrontado
+            </h4>
+            </li>
+            </ul> *@
+
+    </div>
+    <div id="div_antecedente" class="div">
+        @foreach (var listaantecedente in @ViewBag.listaantecedente)
+        {
+            if (@Model.IdAntecedente == listaantecedente.IdAntecedente)
+            {
+                <h2>@listaantecedente.Nome</h2>
+                <h4>@Html.Raw(@listaantecedente.Proficiencia.Replace("\n", "<br>"))</h4>
+                <h4>@Html.Raw(@listaantecedente.Equipamento.Replace("\n", "<br>"))</h4>
+                <h4>@Html.Raw(@listaantecedente.Habilidade.Replace("\n", "<br>"))</h4>
+            }
+        }
+    </div>
+    <div id="div_talento" class="div" style="margin-left: 5px">
+        <div>
+            <h1>TALENTOS</h1>
+            <h3>Você tem direito a: 1 talento. Escolha-o abaixo</h3>
+        </div>
+        <div style="width: 500px; min-width: 500px; outline: auto">
+            <label for="talentos_select">Talento 1</label>
+            <select name="Talento" id="talentos_select">
+                <option asp-for="" value="">-</option>
+                <option value="adeptoelemental">Adepto Elemental</option>
+                <option value="adeptomarcial">Adepto Marcial</option>
+                <option value="alerta">Alerta</option>
+                <option value="ambidestro">Ambidestro</option>
+                <option value="atacantebestial">Atacante Bestial</option>
+                <option value="atiradoragucado">Atirador Aguçado</option>
+                <option value="atiradordemagia">Atirador de Magia</option>
+                <option value="atleta">Atleta</option>
+                <option value="ator">Ator</option>
+                <option value="combatentemotivado">Combatente Motivado</option>
+                <option value="conjuradordeguerra">Conjurador de Guerra</option>
+                <option value="conjuradorderitual">Conjurador de Ritual</option>
+                <option value="curandeiro">Curandeiro</option>
+                <option value="duelistadefensivo">Duelista Defensivo</option>
+                <option value="especialistaembesta">Especialista em Besta</option>
+                <option value="especialistaembriga">Especialista em Briga</option>
+                <option value="exploradordecavernas">Explorador de Cavernas</option>
+                <option value="imobilizar">Imobilizador</option>
+                <option value="iniciadoemmagia">Iniciado em Magia</option>
+                <option value="investidapoderosa">Investida Poderosa</option>
+                <option value="liderinspirador">Líder Inspirador</option>
+                <option value="maestriaemarmadehaste">Maestria em Arma de Haste</option>
+                <option value="maestriaemarmaduramedia">Maestria em Armadura Média</option>
+                <option value="maestriaemarmadurapesada">Maestria em Armadura Pesada</option>
+                <option value="matadordeconjuradores">Matador de Conjuradores</option>
+                <option value="menteafiada">Mente Afiada</option>
+                <option value="mestredearmas">Mestre de Armas</option>
+                <option value="mestredearmasgrandes">Mestre de Armas Grandes</option>
+                <option value="mestredeescudo">Mestre de Escudo</option>
+                <option value="mobilidade">Mobilidade</option>
+                <option value="observador">Observador</option>
+                <option value="perito">Perito</option>
+                <option value="poliglota">Poliglota</option>
+                <option value="protecaoleve">Proteção Leve</option>
+                <option value="protecaomoderada">Proteção Moderada</option>
+                <option value="protecaopesada">Proteção Pesada</option>
+                <option value="resiliente">Resiliente</option>
+                <option value="resistente">Resistente</option>
+                <option value="robusto">Robusto</option>
+                <option value="sentinela">Sentinela</option>
+                <option value="sorrateiro">Sorrateiro</option>
+                <option value="sortudo">Sortudo</option>
+            </select>
+            <div style="margin: 5px">
+                <h3>**Descrição do Talento**</h3>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. uada nibh, consequat
+                    ullamcorper
+                    nisl magna sit amet metus. Phasellus aliquet convallis velit ac sagittis. Etiam suscipit
+                </p>
+                <p> Curabitur urna mi, cursus sit amet efficitur vitae, varius at mauris. Nulla facilisi.
+                    Nunc
+                    pretium, mi eu fringilla fermentum, lacus nisl males.
+                </p>
+                <p>
+                    Felis massa, et iaculis lacus viverra sit amet. Nullam vel iaculis lectus. Phasellus
+                    quis
+                    laoreet neque, sit amet facilisis mi.
+                </p>
+                <p>
+                    Etiam tellus mauris, efficitur a massa vitae,
+                    condimentum gravida elit. Fusce pretium purus non arcu iaculis, semper varius neque
+                    aliquet.
+                </p>
+            </div>
+            <button>Salvar</button>
+        </div>
+    </div>
+    <div id="div_equipamento" class="div">
+        @*PrimeraCamada*@
+        @*Armas*@
+        <div style="width: 210px; min-width: 210px; margin-left: 300px">
+            <table style="border: 1px solid;">
+                <tr>
+                    <td>
+                        <h4>ARMAS</h4>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Nome</label>
+                    </td>
+                    <td>
+                        <label>Bônus</label>
+                    </td>
+                    <td>
+                        <label>Dano</label>
+                    </td>
+                </tr>
+
+                @foreach (var listaarmapersonagem in @ViewBag.listaarmapersonagem)
+                {
+                    @foreach (var listaarma in @ViewBag.listaarma)
+                    {
+                        @if (listaarmapersonagem.IdPersonagem == @Model.IdPersonagem && listaarmapersonagem.IdArma ==
+                       listaarma.IdArma)
+                        {
+                            <tr>
+                                <td>
+                                    <input type="text" size="7" value="@listaarma.Nome">
+                                </td>
+                                <td>
+                                    @foreach (var listaproficienciaarma in @ViewBag.listaproficienciaarma)
+                                    {
+                                        @if (listaproficienciaarma.IdPersonagem == @Model.IdPersonagem && listaproficienciaarma.IdArma ==
+                                       listaarmapersonagem.IdArma)
+                                        {
+                                            @if (listaarma.TipoArma == 2 || listaarma.TipoArma == 4)
+                                            {
+                                                <input type="text" size="4" value='(@Model.BonusProficiencia) + (@Model.ModificadorDestreza)'>
+                                            }
+                                            else
+                                            {
+                                                <input type="text" size="4" value='(@Model.BonusProficiencia) + (@Model.ModificadorForca)'>
+                                            }
+                                        }
+                                        @* else if(){
+                                            @if ((listaarma.TipoArma == 2 || listaarma.TipoArma == 4))
+                                            {
+                                                <input type="text" size="4" value='(@Model.ModificadorDestreza)'>
+                                            }
+                                            else
+                                            {
+                                                <input type="text" size="4" value='(@Model.ModificadorForca)'>
+                                            } 
+                                        } *@
+                                    }
+                                </td>
+                                <td>
+                                    <input type="text" size="4" value="@listaarma.DadoDano">
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
+            </table>
+        </div>
+        @*SegundaCamada*@
+        <div style="display: flex; flex-flow: row wrap">
+            @*Dinheiros*@
+            <div style="height: 165px; max-width: 100px; min-width: 100px; margin: auto; border: 1px solid white; justify-content: justify; text-align: center">
+                <div>
+                    <label>PC</label>
+                        @if(@Model.PC == null){
+                            <input type="text" size="1" value="0">
+                        }
+                        else
+                        {
+                            <input type="text" size="1" value="@Model.PC">
+                        }
+                </div>
+                <div>
+                    <label>PP</label>
+                            @if(@Model.PP == null){
+                                <input type="text" size="1" value="0">
+                            }
+                            else
+                            {
+                                <input type="text" size="1" value="@Model.PP">
+                            }
+                </div>
+                <div>
+                    <label>PE</label>
+                            @if(@Model.PE == null){
+                                <input type="text" size="1" value="0">
+                            }
+                            else
+                            {
+                                <input type="text" size="1" value="@Model.PE">
+                            }
+                </div>
+                <div>
+                    <label>PO</label>
+                            @if(@Model.PO == null){
+                                <input type="text" size="1" value="0">
+                            }
+                            else
+                            {
+                                <input type="text" size="1" value="@Model.PO">
+                            }
+                </div>
+                <div>
+                    <label>PL</label>
+                            @if(@Model.PL == null){
+                                <input type="text" size="1" value="0">
+                            }
+                            else
+                            {
+                                <input type="text" size="1" value="@Model.PL">
+                            }
+                </div>
+            </div>
+            <div style="border: 1px solid white; width: auto; display: inline-block">
+            <label>INVENTÁRIO</label>
+            <br>
+            @{
+                string texto = "";
+                @foreach (var listaitempersonagem in @ViewBag.listaitempersonagem)
+                {
+                    @foreach (var listaitem in @ViewBag.listaitem)
+                    {
+                        if(listaitempersonagem.IdItem == listaitem.IdItem && listaitempersonagem.IdPersonagem == @Model.IdPersonagem){
+                            texto += listaitem.Nome + ", ";
+                        }
+                    }
+                }
+                <textarea cols="50" rows="30">@Html.Raw(@texto)</textarea>
+            }
+            
+        </div>
+        </div>
+        @*Inventário*@
+        
+    </div>
+    <div id="div_magia" class="div">
+        <center>
+            <div>
+                <table>
+                    <thead>
+                        <h4>----- Espaços de Magia por nível -----</h4>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <span>1º </span>
+                            </td>
+
+                            <td>
+                                <span>2º </span>
+                            </td>
+
+                            <td>
+                                <span>3º </span>
+                            </td>
+
+                            <td>
+                                <span>4º </span>
+                            </td>
+
+                            <td>
+                                <span>5º </span>
+                            </td>
+
+                            <td>
+                                <span>6º </span>
+                            </td>
+
+                            <td>
+                                <span>7º </span>
+                            </td>
+
+                            <td>
+                                <span>8º </span>
+                            </td>
+
+                            <td>
+                                <span>9º </span>
+                            </td>
+
+
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <span>2</span>
+                            </td>
+
+                            <td>
+                                <span>0</span>
+                            </td>
+
+                            <td>
+                                <span>0</span>
+                            </td>
+
+                            <td>
+                                <span>0</span>
+                            </td>
+
+                            <td>
+                                <span>0</span>
+                            </td>
+
+                            <td>
+                                <span>0</span>
+                            </td>
+
+                            <td>
+                                <span>0</span>
+                            </td>
+
+                            <td>
+                                <span>0</span>
+                            </td>
+
+                            <td>
+                                <span>0</span>
+                            </td>
+
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </center>
+        <br>
+        <hr>
+        <div style="margin-left: 10px;">
+            <div>
+                <h4>TRUQUES CONHECIDOS</h4>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <input type="text" disabled size="30" value="Espirro Ácido (conjuração)">
+                                <input type="button" value="◉">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" disabled size="30" value="Concertar(transmutação)">
+                                <input type="button" value="◉">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" disabled size="30" value="Ilusão Menor(ilusão)">
+                                <input type="button" value="◉">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <iframe style="float: right; margin-right: 8%; margin-top: -8%;" src="mages.html" width="400"
+                    height="400"></iframe>
+            </div>
+            <hr>
+            <div>
+                <h4>MAGIAS DE 1º CICLO CONHECIDAS</h4>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <input type="text" disabled size="30" value="Raio de Bruxa (Evocação)">
+                                <input type="button" value="◉">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" disabled size="30" value="Armadura Arcana (abjuração)">
+                                <input type="button" value="◉">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>

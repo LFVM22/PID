@@ -1,0 +1,646 @@
+@using Models
+@model Personagem
+@{
+    List<int> armas = new List<int>();
+    List<int> armadura = new List<int>();
+    List<int> item = new List<int>();
+    
+}
+<center>
+    <div style="outline:auto; display:inline-block">
+        <h1 style="margin: 10px">Escolha seu Equipamento!</h1>
+        <hr>
+        <div style="justify-self: center; clear:right; position:static">
+            @if(@Model.IdClasse == 1){
+                <form method="POST">
+                <div>
+                <h3>Classe: Bárbaro</h3>
+                <label for="equip">Um machado grande ou qualquer arma marcial corpo-a-corpo</label>
+                <br>
+                <br>
+                <select asp-for="@armas">
+                    <option value="">Escolha</option>
+                @foreach (var listaarma in @ViewBag.listaarma)
+                {
+                    if (listaarma.IdTipoArma == 3 )
+                    {
+                        <option value="@listaarma.IdArma">@listaarma.Nome (@listaarma.DadoDano)</option>
+                    }
+                }
+                
+                </select>
+                <br>
+                <br>
+                <label for="equip">Dois machados de mão ou qualquer arma
+                    simples</label>
+                <br>
+                <br>
+
+                <select asp-for="@armas">
+                    <option value="">Escolha</option>
+
+                    @foreach(var listaarma in @ViewBag.listaarma)
+                    {
+                        if(listaarma.IdTipoArma == 1 || listaarma.IdTipoArma == 2)
+                        {
+                            if(@listaarma.IdArma == 8)
+                            {
+                                <option value="@listaarma.IdArma">@listaarma.Nome (@listaarma.DadoDano)(2x)</option>
+                            }
+                            <option value="@listaarma.IdArma" >@listaarma.Nome (@listaarma.DadoDano)</option>
+                        }
+                    }
+                </select>
+                <br>
+                <br>
+                <label for="equip">Um pacote de aventureiro e quatro azagaias<label>
+
+                    <button type="submit" asp-route-IdPersonagem = "@Model.IdPersonagem">CONTINUAR</button>
+
+                </div>
+                </form>
+            }
+            @if(@Model.IdClasse == 2){
+                <div>
+                <h3>Classe: Bardo</h3>
+            
+                <label for="equip">Uma rapieira, uma espada longa ou qualquer arma simples</label>
+                <br>
+                <br>
+                <select name="amc" id="amc">`
+                    <option value="0">Escolha</option>
+                    @foreach (var listaarma in @ViewBag.listaarma)
+                    {
+                        if (listaarma.IdTipoArma == 1 || listaarma.IdTipoArma == 2)
+                        {
+                            <option value="@listaarma.IdArma">@listaarma.Nome (@listaarma.DadoDano)</option>
+                        }
+                        if(listaarma.IdArma == 20 || listaarma.IdArma == 30){
+                            <option value="@listaarma.IdArma">@listaarma.Nome (@listaarma.DadoDano)</option>
+                        }
+                    }
+                </select>
+                <br>
+                <br>
+                <label for="equip">Um pacote de diplomata ou um pacote de artista</label>
+                <br>
+                <br>
+
+                <select name="ams" id="ams">
+                    <option value="0">Escolha</option>
+                    <option value="equip1">Pacote de diplomata</option>
+                    <option value="equip2">Pacote de artista</option>
+                </select>
+                <br>
+                <br>
+                
+                <label for="equip">Um lute ou qualquer outro instrumento musical</label>
+                <br>
+                <br>
+
+                <select name="ams" id="ams">
+                    <option value="0">Escolha</option>
+                    <option value="equip1">Lute</option>
+                    <option value="equip2">Qualquer outro instrumento</option>
+                </select>
+
+                <br>
+                <br>
+                
+                <label for="equip">Armadura de couro e uma adaga</label>
+                <br>
+                <br>
+                </div>
+            }
+            @if(@Model.IdClasse == 3){
+                <div>
+                <h3>Classe: Clérigo</h3>
+            
+                <label for="equip">Uma maça ou um martelo de guerra (se for proficiente)</label>
+                <br>
+                <br>
+                <select name="amc" id="amc">
+                    <option value="0">Escolha</option>
+                    <option value="equip1">Maça(1d6)</option>
+                    <option value="equip1">Martelo de guerra(1d8)</option>
+                </select>
+                <br>
+                <br>
+                <label for="equip">Brunea, armadura de couro ou cota de malha (se for proficiente)</label>
+                <br>
+                <br>
+
+                <select name="ams" id="ams">
+                    <option value="0">Escolha</option>
+                    <option value="equip1">Brunea</option>
+                    <option value="equip2">Armadura de couro</option>
+                    <option value="equip2">Cota de malha (se for proficiente)</option>
+                </select>
+                <br>
+                <br>
+                
+                <label for="equip">Uma besta leve e 20 virotes ou qualquer arma simples</label>
+                <br>
+                <br>
+
+                <select name="ams" id="ams">
+                    <option value="0">Escolha</option>
+                    <option value="equip1">Adaga(1d4)</option>
+                    <option value="equip2">Azagaia(1d6)</option>
+                    <option value="equip3">Bordão(1d6)</option>
+                    <option value="equip4">Clava Grande(1d8)</option>
+                    <option value="equip5">Foice Curta(1d4)</option>
+                    <option value="equip6">Lança(1d6)</option>
+                    <option value="equip7">Maça(1d6)</option>
+                    <option value="equip8">Machadinha(1d6)</option>
+                    <option value="equip9">Martelo Leve(1d4)</option>
+                    <option value="equip10">Porrete(1d4)</option>
+                    <option value="equip11">Arco Curto(1d6)</option>
+                    <option value="equip12">Besta Leve(1d8)</option>
+                    <option value="equip13">Dardo(1d4)</option>
+                    <option value="equip14">Funda(1d4)</option>
+                    <option value="equip15">Rapieira(1d8)</option>
+                    <option value="equip16">Espada longa(1d8)</option>
+                    <option value="equip17">Besta leve e 20 virotes</option>
+                </select>
+
+                <br>
+                <br>
+                
+                <label for="equip">Um pacote de sacerdote ou um pacote de aventureiro</label>
+                <br>
+                <br>
+
+                <select name="ams" id="ams">
+                    <option value="0">Escolha</option>
+                    <option value="equip1">Pacote de sacerdote</option>
+                    <option value="equip2">Pacote de aventureiro</option>
+                </select>
+
+                <br>
+                <br>
+                
+                <label for="equip">Um escudo e um símbolo sagrado</label>
+                <button type="submit" asp-route-IdPersonagem = "@Model.IdPersonagem">CONTINUAR</button>
+                </div>
+            }
+            @if(@Model.IdClasse == 4){
+                <div>
+                    <h3>Classe: Druida</h3>
+                
+                    <label for="equip">Um escudo de madeira ou qualquer arma simples</label>
+                    <br>
+                    <br>
+                    <select name="amc" id="amc">
+                        <option value="0">Escolha</option>
+                        <option value="equip1">Adaga(1d4)</option>
+                        <option value="equip2">Azagaia(1d6)</option>
+                        <option value="equip3">Bordão(1d6)</option>
+                        <option value="equip4">Clava Grande(1d8)</option>
+                        <option value="equip5">Foice Curta(1d4)</option>
+                        <option value="equip6">Lança(1d6)</option>
+                        <option value="equip7">Maça(1d6)</option>
+                        <option value="equip8">Machadinha(1d6)</option>
+                        <option value="equip9">Martelo Leve(1d4)</option>
+                        <option value="equip10">Porrete(1d4)</option>
+                        <option value="equip11">Arco Curto(1d6)</option>
+                        <option value="equip12">Besta Leve(1d8)</option>
+                        <option value="equip13">Dardo(1d4)</option>
+                        <option value="equip14">Funda(1d4)</option>
+                        <option value="equip15">Escudo de madeira</option>
+                    </select>
+                    <br>
+                    <br>
+                    <label for="equip">Uma cimitarra ou qualquer arma corpo-a-corpo simples</label>
+                    <br>
+                    <br>
+
+                    <select name="ams" id="ams">
+                        <option value="0">Escolha</option>
+                        <option value="equip1">Adaga(1d4)</option>
+                        <option value="equip2">Azagaia(1d6)</option>
+                        <option value="equip3">Bordão(1d6)</option>
+                        <option value="equip4">Clava Grande(1d8)</option>
+                        <option value="equip5">Foice Curta(1d4)</option>
+                        <option value="equip6">Lança(1d6)</option>
+                        <option value="equip7">Maça(1d6)</option>
+                        <option value="equip8">Machadinha(1d6)</option>
+                        <option value="equip9">Martelo Leve(1d4)</option>
+                        <option value="equip10">Porrete(1d4)</option>
+                        <option value="equip11">Arco Curto(1d6)</option>
+                        <option value="equip12">Besta Leve(1d8)</option>
+                        <option value="equip13">Dardo(1d4)</option>
+                        <option value="equip14">Funda(1d4)</option>
+                        <option value="equip15">Cimitarra(1d6)</option>
+                    </select>
+                    <br>
+                    <br>
+                    
+                    <label for="equip">Um pacote de estudioso ou um pacote de explorador</label>
+                    <br>
+                    <br>
+
+                    <select name="ams" id="ams">
+                        <option value="0">Escolha</option>
+                        <option value="equip1">Pacote de estudioso</option>
+                        <option value="equip2">Pacote de explorador</option>
+                    </select>
+
+                    <br>
+                    <br>
+                    
+                    <label for="equip">Armadura de couro, pacote de aventureiro e um foco druídico</label>
+                    <br>
+                    <br>
+                </div>
+            }
+            @if(Model.IdClasse == 5){
+                <div>
+                    <h3>Classe: Feiticeiro</h3>
+                
+                    <label for="equip">Uma besta leve e 20 virotes ou qualquer arma simples</label>
+                    <br>
+                    <br>
+                    <select name="amc" id="amc">
+                        <option value="0">Escolha</option>
+                        <option value="equip1">Adaga(1d4)</option>
+                        <option value="equip2">Azagaia(1d6)</option>
+                        <option value="equip3">Bordão(1d6)</option>
+                        <option value="equip4">Clava Grande(1d8)</option>
+                        <option value="equip5">Foice Curta(1d4)</option>
+                        <option value="equip6">Lança(1d6)</option>
+                        <option value="equip7">Maça(1d6)</option>
+                        <option value="equip8">Machadinha(1d6)</option>
+                        <option value="equip9">Martelo Leve(1d4)</option>
+                        <option value="equip10">Porrete(1d4)</option>
+                        <option value="equip11">Arco Curto(1d6)</option>
+                        <option value="equip12">Besta Leve(1d8)</option>
+                        <option value="equip13">Dardo(1d4)</option>
+                        <option value="equip14">Funda(1d4)</option>
+                    </select>
+                    <br>
+                    <br>
+                    <label for="equip">Uma bolsa de componentes ou um foco arcano</label>
+                    <br>
+                    <br>
+
+                    <select name="ams" id="ams">
+                        <option value="0">Escolha</option>
+                        <option value="equip1">Bolsa de componentes</option>
+                        <option value="equip2">Foco arcano</option>
+                    </select>
+                    <br>
+                    <br>
+                    
+                    <label for="equip">Um pacote de explorador ou um pacote de aventureiro</label>
+                    <br>
+                    <br>
+
+                    <select name="ams" id="ams">
+                        <option value="0">Escolha</option>
+                        <option value="equip1">Pacote de explorador</option>
+                        <option value="equip2">Pacote de aventureiro</option>
+                    </select>
+                </div>
+            }
+            @if(Model.IdClasse == 6){
+                    <div>
+                    <h3>Classe: Guerreiro</h3>
+                
+                    <label for="equip">Cota de malha ou gibão de peles, arco longo e 20 flechas</label>
+                    <br>
+                    <br>
+                    <select name="amc" id="amc">
+                        <option value="0">Escolha</option>
+                        <option value="equip1">Cota de malha</option>
+                        <option value="equip2">Gibão de peles</option>
+                    </select>
+                    <br>
+                    <br>
+                    <label for="equip">Uma arma marcial e um escudo ou duas armas marciais</label>
+                    <br>
+                    <br>
+
+                    <select name="ams" id="ams">
+                        <option value="0">Escolha</option>
+                        <option value="equip1">Escudo e Alabarda(1d10)</option>
+                        <option value="equip2">Escudo e Cimitarra(1d6)</option>
+                        <option value="equip3">Escudo e Chicote(1d4)</option>
+                        <option value="equip4">Escudo e  Espada Curta(1d6)</option>
+                        <option value="equip5">Escudo e Espada Grande(2d6)</option>
+                        <option value="equip6">Escudo e Espada Longa(1d8)</option>
+                        <option value="equip7">Escudo e Glaive(1d10)</option>
+                        <option value="equip8">Escudo e Lança de Montaria(1d12)</option>
+                        <option value="equip9">Escudo e Lança Longa(1d10)</option>
+                        <option value="equip10">Escudo e Maça Estrela(1d8)</option>
+                        <option value="equip11">Escudo e Machado Grande(1d12)</option>
+                        <option value="equip12">Escudo e Machado de Batalha(1d8)</option>
+                        <option value="equip13">Escudo e Malho(2d6)</option>
+                        <option value="equip14">Escudo e Mangual(1d8)</option>
+                        <option value="equip15">Escudo e Martelo de Guerra(1d8)</option>
+                        <option value="equip16">Escudo e Picareta de Guerra(1d8)</option>
+                        <option value="equip17">Escudo e Rapieira(1d8)</option>
+                        <option value="equip18">Escudo e Tridente(1d6)</option>
+                        <option value="equip19">Escudo e Arco Longo(1d8)</option>
+                        <option value="equip20">Escudo e Besta de Mão(1d6)</option>
+                        <option value="equip21">Escudo e Besta Pesada(1d10)</option>
+                        <option value="equip22">Escudo e Rede</option>
+                        <option value="equip23">Escudo e Zarabatana</option>
+                        <option value="equip24">Alabarda(1d10)(2x)</option>
+                        <option value="equip25">Cimitarra(1d6)(2x)</option>
+                        <option value="equip26">Chicote(1d4)(2x)</option>
+                        <option value="equip27"> Espada Curta(1d6)(2x)</option>
+                        <option value="equip28">Espada Grande(2d6)(2x)</option>
+                        <option value="equip29">Espada Longa(1d8)(2x)</option>
+                        <option value="equip30">Glaive(1d10)(2x)</option>
+                        <option value="equip31">Lança de Montaria(1d12)(2x)</option>
+                        <option value="equip32">Lança Longa(1d10)(2x)</option>
+                        <option value="equip33">Maça Estrela(1d8)(2x)</option>
+                        <option value="equip34">Machado Grande(1d12)(2x)</option>
+                        <option value="equip35">Machado de Batalha(1d8)(2x)</option>
+                        <option value="equip36">Malho(2d6)(2x)</option>
+                        <option value="equip37">Mangual(1d8)(2x)</option>
+                        <option value="equip38">Martelo de Guerra(1d8)(2x)</option>
+                        <option value="equip39">Picareta de Guerra(1d8)(2x)</option>
+                        <option value="equip40">Rapieira(1d8)(2x)</option>
+                        <option value="equip41">Tridente(1d6)(2x)</option>
+                        <option value="equip42">Arco Longo(1d8)(2x)</option>
+                        <option value="equip43">Besta de Mão(1d6)(2x)</option>
+                        <option value="equip44">Besta Pesada(1d10)(2x)</option>
+                        <option value="equip45">Rede(2x)</option>
+                        <option value="equip46">Zarabatana(2x)</option>
+                    </select>
+                    <br>
+                    <br>
+                    
+                    <label for="equip">Uma besta leve e 20 virotes ou dois machados de arremesso</label>
+                    <br>
+
+                    <select name="ams" id="ams">
+                        <option value="0">Escolha</option>
+                        <option value="equip1">Besta leve e 20 virotes</option>
+                        <option value="equip2">Machadinha (1d6)(2x)</option>
+                    </select>
+
+                    <br>
+                    <label for="equip">Um pacote de aventureiro ou um pacote de explorador</label>
+                    <br>
+                    <br>
+
+                    <select name="ams" id="ams">
+                        <option value="0">Escolha</option>
+                        <option value="equip1">Pacote de aventureiro</option>
+                        <option value="equip2">Pacote de explorador</option>
+                    </select>
+                </div>
+            }
+            @if(Model.IdClasse == 7){
+                <div>
+                <h3>Classe: Ladino</h3>
+            
+                <label for="equip">Uma rapieira ou uma espada longa</label>
+                <br>
+                <br>
+                <select name="amc" id="amc">
+                    <option value="0">Escolha</option>
+                    <option value="equip1">Rapieira</option>
+                    <option value="equip2">Espada longa</option>
+                </select>
+                <br>
+                <br>
+                <label for="equip">Um arco curto e uma aljava com 20 flechas ou uma espada curta</label>
+                <br>
+                <br>
+
+                <select name="ams" id="ams">
+                    <option value="0">Escolha</option>
+                    <option value="equip1">Arco curto (1d6) e aljava com 20 flechas</option>
+                    <option value="equip2">Espada curta(1d6)</option>
+                
+                </select>
+                <br>
+                <br>
+                
+                <label for="equip">Um pacote de assaltante ou um pacote de aventureiro ou um pacote de explorador</label>
+                <br>
+
+                <select name="ams" id="ams">
+                    <option value="0">Escolha</option>
+                    <option value="equip1">Pacote de assaltante</option>
+                    <option value="equip2">Pacote de aventureiro</option>
+                    
+                </select>
+
+                <br>
+                <label for="equip">Um pacote de aventureiro ou um pacote de explorador</label>
+                <br>
+                <br>
+
+                <select name="ams" id="ams">
+                    <option value="0">Escolha</option>
+                    <option value="equip1">Pacote de aventureiro</option>
+                    <option value="equip2">Pacote de explorador</option>
+                    <option value="equip3">Pacote de assaltante</option>
+                </select>
+
+                <br>
+
+                <label for="equip">Armadura de couro, duas adagas e ferramentas de ladrão</label>
+                </div>
+            }
+            @if(Model.IdClasse == 8){
+                <div>
+                <h3>Classe: Mago</h3>
+            
+                <label for="equip">Um bordão ou uma adaga</label>
+                <br>
+                <br>
+                <select name="amc" id="amc">
+                    <option value="0">Escolha</option>
+                    <option value="equip1">Bordão</option>
+                    <option value="equip2">Adaga(1d6)</option>
+                </select>
+                <br>
+                <br>
+                <label for="equip">Uma bolsa de componentes ou um foco arcano</label>
+                <br>
+                <br>
+
+                <select name="ams" id="ams">
+                    <option value="0">Escolha</option>
+                    <option value="equip1">Bolsa de componentes</option>
+                    <option value="equip2">Foco arcano</option>
+                
+                </select>
+                <br>
+                <br>
+                
+                <label for="equip">Um pacote de estudioso ou um pacote de explorador</label>
+                <br>
+
+                <select name="ams" id="ams">
+                    <option value="0">Escolha</option>
+                    <option value="equip1">Pacote estudioso</option>
+                    <option value="equip2">Pacote de explorador</option>
+                    
+                </select>
+
+                <br>
+                <label for="equip"> Um Grimório</label>
+                <br>
+                <br>
+                </div>
+            }
+            @if(Model.IdClasse == 9){
+                <div>
+                <h3>Classe: Paladino</h3>
+            
+                <label for="equip">Uma arma marcial e escudo ou duas armas marciais</label>
+                <br>
+                <br>
+                <select name="amc" id="amc">
+                    <option value="equip1">Escudo e Alabarda(1d10)</option>
+                    <option value="equip2">Escudo e Cimitarra(1d6)</option>
+                    <option value="equip3">Escudo e Chicote(1d4)</option>
+                    <option value="equip4">Escudo e  Espada Curta(1d6)</option>
+                    <option value="equip5">Escudo e Espada Grande(2d6)</option>
+                    <option value="equip6">Escudo e Espada Longa(1d8)</option>
+                    <option value="equip7">Escudo e Glaive(1d10)</option>
+                    <option value="equip8">Escudo e Lança de Montaria(1d12)</option>
+                    <option value="equip9">Escudo e Lança Longa(1d10)</option>
+                    <option value="equip10">Escudo e Maça Estrela(1d8)</option>
+                    <option value="equip11">Escudo e Machado Grande(1d12)</option>
+                    <option value="equip12">Escudo e Machado de Batalha(1d8)</option>
+                    <option value="equip13">Escudo e Malho(2d6)</option>
+                    <option value="equip14">Escudo e Mangual(1d8)</option>
+                    <option value="equip15">Escudo e Martelo de Guerra(1d8)</option>
+                    <option value="equip16">Escudo e Picareta de Guerra(1d8)</option>
+                    <option value="equip17">Escudo e Rapieira(1d8)</option>
+                    <option value="equip18">Escudo e Tridente(1d6)</option>
+                    <option value="equip19">Escudo e Arco Longo(1d8)</option>
+                    <option value="equip20">Escudo e Besta de Mão(1d6)</option>
+                    <option value="equip21">Escudo e Besta Pesada(1d10)</option>
+                    <option value="equip22">Escudo e Rede</option>
+                    <option value="equip23">Escudo e Zarabatana</option>
+                    <option value="equip24">Alabarda(1d10)(2x)</option>
+                    <option value="equip25">Cimitarra(1d6)(2x)</option>
+                    <option value="equip26">Chicote(1d4)(2x)</option>
+                    <option value="equip27"> Espada Curta(1d6)(2x)</option>
+                    <option value="equip28">Espada Grande(2d6)(2x)</option>
+                    <option value="equip29">Espada Longa(1d8)(2x)</option>
+                    <option value="equip30">Glaive(1d10)(2x)</option>
+                    <option value="equip31">Lança de Montaria(1d12)(2x)</option>
+                    <option value="equip32">Lança Longa(1d10)(2x)</option>
+                    <option value="equip33">Maça Estrela(1d8)(2x)</option>
+                    <option value="equip34">Machado Grande(1d12)(2x)</option>
+                    <option value="equip35">Machado de Batalha(1d8)(2x)</option>
+                    <option value="equip36">Malho(2d6)(2x)</option>
+                    <option value="equip37">Mangual(1d8)(2x)</option>
+                    <option value="equip38">Martelo de Guerra(1d8)(2x)</option>
+                    <option value="equip39">Picareta de Guerra(1d8)(2x)</option>
+                    <option value="equip40">Rapieira(1d8)(2x)</option>
+                    <option value="equip41">Tridente(1d6)(2x)</option>
+                    <option value="equip42">Arco Longo(1d8)(2x)</option>
+                    <option value="equip43">Besta de Mão(1d6)(2x)</option>
+                    <option value="equip44">Besta Pesada(1d10)(2x)</option>
+                    <option value="equip45">Rede(2x)</option>
+                    <option value="equip46">Zarabatana(2x)</option>
+                </select>
+
+                <br>
+
+                <label for="equip">Cinco azagais ou qualquer arma simples corpo-a-corpo</label>
+
+                <br>
+
+
+                <select name="ams" id="ams">
+                    <option value="equip1">Adaga(1d4)</option>
+                        <option value="equip2">Azagaia(1d6)</option>
+                        <option value="equip3">Bordão(1d6)</option>
+                        <option value="equip4">Clava Grande(1d8)</option>
+                        <option value="equip5">Foice Curta(1d4)</option>
+                        <option value="equip6">Lança(1d6)</option>
+                        <option value="equip7">Maça(1d6)</option>
+                        <option value="equip8">Machadinha(1d6)</option>
+                        <option value="equip9">Martelo Leve(1d4)</option>
+                        <option value="equip10">Porrete(1d4)</option>
+                </select>
+                <br>
+                <br>
+                <label for="equip">Um pacote de sacerdote ou um pacote de aventureiro</label>
+                <br>
+                <br>
+
+                <select name="ams" id="ams">
+                    <option value="0">Escolha</option>
+                    <option value="equip1">Pacote de sacerdote</option>
+                    <option value="equip2">Pacote de aventureiro</option>                
+                </select>
+                <br>
+                <br>
+
+                <label for="equip">Cota de malha e um símbolo sagrado</label>
+                </div>
+            }
+            @if(Model.IdClasse == 10){
+                <div>
+                <h3>Classe: Patrulheiro</h3>
+            
+                <label for="equip">Brunea ou Armadura de couro</label>
+                <br>
+                <br>
+                <select name="amc" id="amc">
+                    <option value="0">Escolha</option>
+                    <option value="equip1">Brunea</option>
+                    <option value="equip2">Armadura de couro</option>
+                </select>
+                <br>
+                <br>
+                <label for="equip">Duas espadas curtas ou duas armas simples corpo-a-corpo</label>
+                <br>
+                <br>
+
+                <select name="ams" id="ams">
+                    <option value="0">Escolha</option>
+                    <option value="equip2">Azagaia(1d6)(2x)</option>
+                    <option value="equip3">Bordão(1d6)(2x)</option>
+                    <option value="equip4">Clava Grande(1d8)(2x)</option>
+                    <option value="equip5">Foice Curta(1d4)(2x)</option>
+                    <option value="equip6">Lança(1d6)(2x)</option>
+                    <option value="equip7">Maça(1d6)(2x)</option>
+                    <option value="equip8">Machadinha(1d6)(2x)</option>
+                    <option value="equip9">Martelo Leve(1d4)(2x)</option>
+                    <option value="equip10">Porrete(1d4)(2x)</option>
+                    <option value="equip10">Espada curta (1d6)(2x)</option>
+                
+                </select>
+                <br>
+                <br>
+
+                <label for="equip">Um pacote de explorador ou um pacote de aventureiro</label>
+                <br>
+                <br>
+
+                <select name="ams" id="ams">
+                    <option value="0">Escolha</option>
+                    <option value="equip2">Pacote de explorador</option>
+                    <option value="equip3">Pacote de aventureiro</option>
+                </select>
+                <br>
+                <br>
+                
+                <label for="equip">Um arco longo e uma aljava com 20 flechas</label>
+                <br>
+                <br>
+                </div>
+            }
+
+    </div>
+
+    <div style="justify-self:center; clear:none; position:relative; margin:10px">
+
+    </div>
+    </div>
+
+</center>

@@ -1,0 +1,228 @@
+@using Models
+@model Personagem
+<script src="~/js/pericia.js"></script>
+
+<center>
+    <div style="outline:auto; display:inline-block">
+        <h1 style="margin: 10px">Selecione suas perícias</h1>
+        <hr>
+        <div style="justify-self: center; clear:right; position:static">
+
+
+            <form onclick="pericia()" method="POST">
+                <h3>Perícias de Antecedente:</h3>
+                <!--Acólito-->
+                @foreach (var item in ViewBag.listaantecedente)
+                {
+                    if (Model.IdAntecedente == item.IdAntecedente)
+                    {
+                        <h5>@item.Nome</h5>
+                    }
+                }
+                @if (Model.IdAntecedente == 1)
+                {
+                    <input onclick="return false;" type="radio" checked  asp-for="@Model.Intuicao" value=@true>
+                    <label for="ft">Intuição</label>
+                    <br>
+                    <input onclick="return false;" checked type="radio"
+                    asp-for="@Model.Religiao" value=@true>
+                    <label for="pres">Religião</label>
+                    <br>
+                }
+                else if (Model.IdAntecedente == 2)
+                {
+                    <input onclick="return false;" type="checkbox" checked id="ft" name="pericia_ant" value="furtividade">
+                    <label for="ft">Intuição</label>
+                    <br>
+                    <input onclick="return false;" checked type="checkbox" id="pres" name="pericia_ant"
+                    value="prestidigitacao">
+                    <label for="pres">Persuasão</label>
+                    <br>
+                }
+                else if (Model.IdAntecedente == 3)
+                {
+                    <input onclick="return false;" type="checkbox" checked id="ft" name="pericia_ant" value="furtividade">
+                    <label for="ft">Acrobacia</label>
+                    <br>
+                    <input onclick="return false;" checked type="checkbox" id="pres" name="pericia_ant"
+                    value="prestidigitacao">
+                    <label for="pres">Atuação</label>
+                    <br>
+                }
+                else if (Model.IdAntecedente == 4)
+                {
+                    <input onclick="return false;" type="checkbox" checked id="ft" name="pericia_ant" value="furtividade">
+                    <label for="ft">Enganação</label>
+                    <br>
+                    <input onclick="return false;" checked type="checkbox" id="pres" name="pericia_ant"
+                    value="prestidigitacao">
+                    <label for="pres">Prestidigitação</label>
+                    <br>
+                }
+                else if (Model.IdAntecedente == 5)
+                {
+                    <input onclick="return false;" type="checkbox" checked id="ft" name="pericia_ant" value="furtividade">
+                    <label for="ft">Enganação</label>
+                    <br>
+                    <input onclick="return false;" checked type="checkbox" id="pres" name="pericia_ant"
+                    value="prestidigitacao">
+                    <label for="pres">Furtividade</label>
+                    <br>
+                }
+                else if (Model.IdAntecedente == 6)
+                {
+                    <input onclick="return false;" type="checkbox" checked id="ft" name="pericia_ant" value="furtividade">
+                    <label for="ft">Medicina</label>
+                    <br>
+                    <input onclick="return false;" checked type="checkbox" id="pres" name="pericia_ant"
+                    value="prestidigitacao">
+                    <label for="pres">Religião</label>
+                    <br>
+                }
+                else if (Model.IdAntecedente == 7)
+                {
+                    <input onclick="return false;" type="checkbox" checked id="ft" name="pericia_ant" value="furtividade">
+                    <label for="ft">Atletismo</label>
+                    <br>
+                    <input onclick="return false;" checked type="checkbox" id="pres" name="pericia_ant"
+                    value="prestidigitacao">
+                    <label for="pres">Sobrevivência</label>
+                    <br>
+                }
+                else if (Model.IdAntecedente == 8)
+                {
+                    <input onclick="return false;" type="checkbox" checked id="ft" name="pericia_ant" value="furtividade">
+                    <label for="ft">Lidar com Animais</label>
+                    <br>
+                    <input onclick="return false;" checked type="checkbox" id="pres" name="pericia_ant"
+                    value="prestidigitacao">
+                    <label for="pres">Sobrevivência</label>
+                    <br>
+                }
+                else if (Model.IdAntecedente == 9)
+                {
+                    <input onclick="return false;" type="checkbox" checked id="ft" name="pericia_ant" value="furtividade">
+                    <label for="ft">Atletismo</label>
+                    <br>
+                    <input onclick="return false;" checked type="checkbox" id="pres" name="pericia_ant"
+                    value="prestidigitacao">
+                    <label for="pres">Percepção</label>
+                    <br>
+                }
+                else if (Model.IdAntecedente == 10)
+                {
+                    <input onclick="return false;" type="checkbox" checked id="ft" name="pericia_ant" value="furtividade">
+                    <label for="ft">História</label>
+                    <br>
+                    <input onclick="return false;" checked type="checkbox" id="pres" name="pericia_ant"
+                    value="prestidigitacao">
+                    <label for="pres">Persuasão</label>
+                    <br>
+                }
+                else if (Model.IdAntecedente == 11)
+                {
+                    <input onclick="return false;" type="checkbox" checked id="ft" name="pericia_ant" value="furtividade">
+                    <label for="ft">Furtividade</label>
+                    <br>
+                    <input onclick="return false;" checked type="checkbox" id="pres" name="pericia_ant"
+                    value="prestidigitacao">
+                    <label for="pres">Prestidigitação</label>
+                    <br>
+                }
+                else if (Model.IdAntecedente == 12)
+                {
+                    <input onclick="return false;" type="checkbox" checked id="ft" name="pericia_ant" value="furtividade">
+                    <label for="ft">Arcanismo</label>
+                    <br>
+                    <input onclick="return false;" checked type="checkbox" id="pres" name="pericia_ant"
+                    value="prestidigitacao">
+                    <label for="pres">História</label>
+                    <br>
+                }
+                else if (Model.IdAntecedente == 13)
+                {
+                    <input onclick="return false;" type="checkbox" checked id="ft" name="pericia_ant" value="furtividade">
+                    <label for="ft">Atletismo</label>
+                    <br>
+                    <input onclick="return false;" checked type="checkbox" id="pres" name="pericia_ant"
+                    value="prestidigitacao">
+                    <label for="pres">Intimidação</label>
+                    <br>
+                }
+                else
+                {
+                    Environment.Exit(0);
+                }
+                @foreach (var item in @ViewBag.listaantecedente)
+                {
+                    if (Model.IdAntecedente == item.IdAntecedente)
+                    {
+                        <hr>
+                        <h5>Proficiencias:</h5>
+                        <h6>@item.Proficiencia</h6>
+                        <hr>
+                        <hr>
+                    }
+                }
+
+                <h3>Perícias de Classe:</h3>
+
+                @{
+                    string acrobacia = "Acrobacia";
+                    string arcanismo = "Arcanismo";
+                    string atletismo = "Atletismo";
+                    string atuacao = "Atuação";
+                    string enganacao = "Enganação";
+                    string furtividade = "Furtividade";
+                    string historia = "História";
+                    string intimidacao = "Intimidação";
+                    string intuicao = "Intuição";
+                    string investigacao = "Investigação";
+                    string lidarcomanimais = "LidarcomAnimais";
+                    string medicina = "Medicina";
+                    string natureza = "Natureza";
+                    string percepcao = "Percepção";
+                    string persuasao = "Persuasão";
+                    string prestidigitacao = "Prestidigitação";
+                    string religiao = "Religião";
+                    string sobrevivencia = "Sobrevivência";
+
+                    @foreach (var item in @ViewBag.listaclasse)
+                    {
+                        if (Model.IdClasse == item.IdClasse)
+                        {
+                            <h5>@item.Nome</h5>
+
+                            if (Model.IdClasse == 1)
+                            {
+                                <h6>Escolha duas entre:</h6>
+                                <br>
+                                <input type="radio" id='@("Pericia" + @lidarcomanimais)' asp-for="@Model.LidarcomAnimais" value=@true>
+                                <label for='@("Pericia" + @lidarcomanimais)'>@lidarcomanimais</label>
+                                <br>
+                                <input type="radio" id='@("Pericia" + @atletismo)' asp-for="@Model.Atletismo" value=@true>
+                                <label for='@("Pericia" + @atletismo)'>@atletismo</label>
+                                <br>
+                                <input type="radio" id='@("Pericia" + @intimidacao)' asp-for="@Model.Intimidacao" value=@true>
+                                <label for='@("Pericia" + @intimidacao)'>@intimidacao</label>
+                                <br>
+                                <input type="radio" id='@("Pericia" + @natureza)' asp-for="@Model.Natureza" value=@true>
+                                <label for='@("Pericia" + @natureza)'>@natureza</label>
+                                <br>
+                                <input type="radio" id='@("Pericia" + @percepcao)' asp-for="@Model.Percepcao" value=@true>
+                                <label for='@("Pericia" + @percepcao)'>@percepcao</label>
+                                <br>
+                                <input type="radio" id='@("Pericia" + @sobrevivencia)' asp-for="@Model.Sobrevivencia" value=@true>
+                                <label for='@("Pericia" + @sobrevivencia)'>@sobrevivencia</label>
+                                <br>
+                            }
+                        }
+                    }
+                }
+                <input type="hidden" asp-for="@Model.IdPersonagem">
+                <button type="submit" asp-route-IdPersonagem="@Model.IdPersonagem">Salvar</button>
+            </form>
+            
+        </div>
+    </div>
+</center>

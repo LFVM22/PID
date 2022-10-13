@@ -1,0 +1,80 @@
+@using Models
+@model Personagem
+@{
+  List<int> profitem = new List<int>();
+}
+<script src="~/js/antecedentes.js"></script>
+
+<center>
+  <form onclick="antecedentes()" method="POST">
+    @Model.IdAntecedente
+    <div style="outline:auto; display:inline-block">
+      <h1 style="margin: 10px">Escolha seu Antecedente!</h1>
+      <hr>
+      <div style="justify-self: center; clear:right; position:static">
+        <h2>Antecedentes:</h2>
+      </div>
+      <div style="justify-self:center; clear:none; position:relative;">
+
+        <div style="display:inline-block; text-align: left; vertical-align: super; margin:10px">
+
+          @foreach (var listaantecedente in @ViewBag.listaantecedente)
+          {
+            if (listaantecedente.IdAntecedente % 2 != 0)
+            {
+              <input id='@("Antecedente" + listaantecedente.IdAntecedente)' type="radio" name="IdAntecedente" value=@listaantecedente.IdAntecedente>
+              <label for="@listaantecedente.Nome">@listaantecedente.Nome</label><br>
+            }
+          }
+        </div>
+        <div style="display:inline-block; text-align: left; vertical-align: super">
+          @foreach (var listaantecedente in @ViewBag.listaantecedente)
+          {
+            if (listaantecedente.IdAntecedente % 2 == 0)
+            {
+              <input id='@("Antecedente" + listaantecedente.IdAntecedente)' type="radio" name="IdAntecedente" value=@listaantecedente.IdAntecedente>
+              <label for="@listaantecedente.Nome">@listaantecedente.Nome</label><br>
+            }
+          }
+        </div>
+        <input type="hidden" asp-for="@Model.IdPersonagem">
+        <button type="submit" asp-route-IdPersonagem="@Model.IdPersonagem">Continuar</button>
+      </div>
+    </div>
+    <hr>
+    @foreach (var listaantecedente in @ViewBag.listaantecedente)
+    {
+      <div id="@(listaantecedente.Nome)antecedente" class="antecedentes"
+      style="visibility:hidden; display: none; text-align: left; margin-left: 2px">
+        <h2>@listaantecedente.Nome</h2>
+        <hr>
+        <h4>Proficiências: @listaantecedente.Proficiencia</h4>
+        <hr>
+        @if(@listaantecedente.IdAntecedente == 2)
+        {
+          <select asp-for="@profitem">
+            <option value="">Escolha uma ferramenta de artesão</option>
+            <option></option>
+          </select>
+        }
+        <hr>
+        <h4>Equipamentos: @listaantecedente.Equipamento</h4>
+        <hr>
+        @if (listaantecedente.IdiomaQtd != 0)
+        {
+          <h4>Idiomas: @listaantecedente.IdiomaQtd idiomas à sua escolha</h4>
+        }
+        <hr>
+        <h4>@listaantecedente.Habilidade</h4>
+        <hr>
+        <h4>Traços: @listaantecedente.Traco</h4>
+        <hr>
+        <h4>Ideais: @listaantecedente.Ideal</h4>
+        <hr>
+        <h4>Vínculos: @listaantecedente.Vinculo</h4>
+        <hr>
+        <h4>Defeitos: @listaantecedente.Defeito</h4>
+      </div>
+    }
+  </form>
+</center>
